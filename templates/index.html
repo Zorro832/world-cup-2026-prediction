@@ -406,7 +406,7 @@
                     }
                 }
             };
-            xhr.send(JSON.stringify({user_name: name}));
+            xhr.send(JSON.stringify({user: name}));
         }
         
         function showPredictArea() {
@@ -428,7 +428,7 @@
                     stopTimers();
                 }
             };
-            xhr.send(JSON.stringify({user_name: ''}));
+            xhr.send(JSON.stringify({user: ''}));
         }
         
         // ============= 填写预测 =============
@@ -529,7 +529,7 @@
                     else alert(data.message);
                 }
             };
-            xhr.send(JSON.stringify({user_name: currentUser, match_id: id, pred_a: parseInt(a), pred_b: parseInt(b)}));
+            xhr.send(JSON.stringify({user: currentUser, match_id: id, pred_a: parseInt(a), pred_b: parseInt(b)}));
         }
         
         function showMatchDetail(id) {
@@ -721,7 +721,7 @@
                     else alert(data.message);
                 }
             };
-            xhr.send(JSON.stringify({user_name: currentUser, predictions: preds}));
+            xhr.send(JSON.stringify({user: currentUser, predictions: preds}));
         }
         
         // ============= 管理员 =============
@@ -1192,7 +1192,7 @@
                     }
                 }
             };
-            xhr.send(JSON.stringify({user_name: userName}));
+            xhr.send(JSON.stringify({user: userName}));
         }
         
         // ============= 数据备份/恢复 =============
