@@ -1,0 +1,164 @@
+[2026-05-09 14:24:57 +0000] [2016] [INFO] Starting gunicorn 26.0.0
+[2026-05-09 14:24:57 +0000] [2016] [INFO] Listening at: http://0.0.0.0:5000 (2016)
+[2026-05-09 14:24:57 +0000] [2016] [INFO] Using worker: sync
+[2026-05-09 14:24:57 +0000] [2057] [INFO] Booting worker with pid: 2057
+[2026-05-09 14:24:57 +0000] [2058] [INFO] Booting worker with pid: 2058
+[2026-05-09 14:24:57 +0000] [2059] [INFO] Booting worker with pid: 2059
+[2026-05-09 14:24:57 +0000] [2060] [INFO] Booting worker with pid: 2060
+[2026-05-09 14:24:57 +0000] [2016] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl
+[2026-05-09 14:26:31,219] ERROR in app: Exception on /api/knockout/load [GET]
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 608, in load_knockout_predictions
+    'locked': is_knockout_locked()
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 545, in is_knockout_locked
+    first_match_time = datetime.strptime(first_match, '%Y-%m-%d %H:%M:%S')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2026-06-11 20:00' does not match format '%Y-%m-%d %H:%M:%S'
+[2026-05-09 14:26:48,221] ERROR in app: Exception on /api/knockout/load [GET]
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 608, in load_knockout_predictions
+    'locked': is_knockout_locked()
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 545, in is_knockout_locked
+    first_match_time = datetime.strptime(first_match, '%Y-%m-%d %H:%M:%S')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2026-06-11 20:00' does not match format '%Y-%m-%d %H:%M:%S'
+[2026-05-09 14:27:10,879] ERROR in app: Exception on /api/knockout/load [GET]
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 608, in load_knockout_predictions
+    'locked': is_knockout_locked()
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 545, in is_knockout_locked
+    first_match_time = datetime.strptime(first_match, '%Y-%m-%d %H:%M:%S')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2026-06-11 20:00' does not match format '%Y-%m-%d %H:%M:%S'
+[2026-05-09 14:29:44,808] ERROR in app: Exception on /api/knockout/load [GET]
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 608, in load_knockout_predictions
+    'locked': is_knockout_locked()
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 545, in is_knockout_locked
+    first_match_time = datetime.strptime(first_match, '%Y-%m-%d %H:%M:%S')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2026-06-11 20:00' does not match format '%Y-%m-%d %H:%M:%S'
+[2026-05-09 14:29:55,602] ERROR in app: Exception on /api/knockout/load [GET]
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 608, in load_knockout_predictions
+    'locked': is_knockout_locked()
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 545, in is_knockout_locked
+    first_match_time = datetime.strptime(first_match, '%Y-%m-%d %H:%M:%S')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2026-06-11 20:00' does not match format '%Y-%m-%d %H:%M:%S'
+[2026-05-09 14:30:43,461] ERROR in app: Exception on /api/knockout/load [GET]
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 608, in load_knockout_predictions
+    'locked': is_knockout_locked()
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/app.py", line 545, in is_knockout_locked
+    first_match_time = datetime.strptime(first_match, '%Y-%m-%d %H:%M:%S')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2026-06-11 20:00' does not match format '%Y-%m-%d %H:%M:%S'

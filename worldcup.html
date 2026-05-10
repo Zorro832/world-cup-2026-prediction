@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026世界杯竞猜</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height:100vh; padding:10px; }
+        .container { max-width:800px; margin:0 auto; background:white; border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.3); overflow:hidden; }
+        .header { background:linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color:white; padding:20px; text-align:center; }
+        .header h1 { font-size:22px; margin-bottom:10px; }
+        .rules { background:rgba(255,255,255,0.2); padding:8px 15px; border-radius:20px; font-size:13px; }
+        .tabs { display:flex; background:#f5f5f5; border-bottom:2px solid #ddd; }
+        .tab { flex:1; padding:12px; text-align:center; cursor:pointer; font-weight:bold; font-size:14px; color:#666; border-bottom:3px solid transparent; transition:all 0.3s; }
+        .tab:hover { background:#e0e0e0; }
+        .tab.active { background:white; color:#1e3c72; border-bottom-color:#1e3c72; }
+        .content { padding:20px; }
+        .page { display:none; }
+        .page.active { display:block; }
+        .input-group { margin-bottom:20px; }
+        .input-group label { display:block; margin-bottom:8px; font-weight:bold; color:#333; }
+        .input-group input { width:100%; padding:12px; border:2px solid #ddd; border-radius:8px; font-size:16px; }
+        .input-group input:focus { border-color:#1e3c72; outline:none; }
+        .match-card { background:#f9f9f9; border:1px solid #e0e0e0; border-radius:10px; padding:12px; margin-bottom:10px; }
+        .match-card.locked { background:#ffe6e6; border-color:#ff9999; }
+        .match-stage { font-size:11px; color:#666; margin-bottom:5px; }
+        .match-teams { font-size:15px; font-weight:bold; color:#333; margin-bottom:8px; }
+        .prediction { display:flex; align-items:center; justify-content:center; gap:10px; }
+        .score-input { width:50px; padding:8px; border:2px solid #ddd; border-radius:8px; text-align:center; font-size:16px; font-weight:bold; }
+        .score-input:focus { border-color:#1e3c72; outline:none; }
+        .score-input:disabled { background:#f0f0f0; color:#999; cursor:not-allowed; }
+        .btn { width:100%; padding:15px; border:none; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer; margin-top:20px; background:linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color:white; transition:all 0.3s; }
+        .btn:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.2); }
+        .stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:20px; }
+        .stat-card { background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:15px; border-radius:10px; text-align:center; }
+        .stat-number { font-size:24px; font-weight:bold; }
+        .stat-label { font-size:12px; opacity:0.9; }
+        table { width:100%; border-collapse:collapse; }
+        th { background:#1e3c72; color:white; padding:10px; font-size:13px; text-align:center; }
+        td { padding:10px; border-bottom:1px solid #eee; font-size:13px; text-align:center; }
+        tr:hover { background:#f5f5f5; }
+        .rank-1 { background:#fff3cd !important; }
+        .rank-2 { background:#e2e3e5 !important; }
+        .rank-3 { background:#fce4d6 !important; }
+        .alert { padding:12px; border-radius:8px; margin-bottom:15px; font-size:13px; background:#d1ecf1; color:#0c5460; border:1px solid #bee5eb; }
+        .locked-msg { font-size:11px; color:#dc3545; margin-top:5px; text-align:center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚽ 2026年世界杯竞猜</h1>
+            <div class="rules">
+                准确比分 <strong>4分</strong> | 猜中胜负 <strong>1分</strong> | 未猜中 <strong>0分</strong>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('predict')">📝 填写预测</div>
+            <div class="tab" onclick="switchTab('ranking')">🏆 实时排名</div>
+            <div class="tab" onclick="switchTab('admin')">⚙️ 管理员</div>
+        </div>
+        
+        <div class="content">
+            <!-- 填写预测页面 -->
+            <div id="predict-page" class="page active">
+                <div class="alert">
+                    💡 提示：比赛开始前5分钟将自动锁定该场比赛的预测
+                </div>
+                
+                <div class="input-group">
+                    <label>你的姓名</label>
+                    <input type="text" id="user-name" placeholder="请输入你的姓名" onchange="saveUserName()">
+                </div>
+                
+                <div id="predict-list"></div>
+                
+                <button class="btn" onclick="savePredictions()">
+                    💾 保存预测
+                </button>
+            </div>
+            
+            <!-- 排名页面 -->
+            <div id="ranking-page" class="page">
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-users">0</div>
+                        <div class="stat-label">参与人数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-matches">0</div>
+                        <div class="stat-label">已完成场次</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-avg">0</div>
+                        <div class="stat-label">平均得分</div>
+                    </div>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>姓名</th>
+                            <th>总积分</th>
+                            <th>准确比分</th>
+                            <th>猜中胜负</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranking-body"></tbody>
+                </table>
+            </div>
+            
+            <!-- 管理员页面 -->
+            <div id="admin-page" class="page">
+                <div class="alert">
+                    ⚙️ 管理员专区：填写实际比赛结果
+                </div>
+                
+                <div id="admin-list"></div>
+                
+                <button class="btn" onclick="saveResults()">
+                    💾 保存结果并自动计算得分
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 2026年世界杯真实比赛数据（示例）
+        const matches = [
+            {id:1, stage:"小组赛A组", date:"2026-06-11", time:"20:00", teamA:"墨西哥", teamB:"波兰"},
+            {id:2, stage:"小组赛A组", date:"2026-06-11", time:"23:00", teamA:"阿根廷", teamB:"沙特阿拉伯"},
+            {id:3, stage:"小组赛A组", date:"2026-06-16", time:"20:00", teamA:"墨西哥", teamB:"沙特阿拉伯"},
+            {id:4, stage:"小组赛A组", date:"2026-06-16", time:"23:00", teamA:"阿根廷", teamB:"波兰"},
+            {id:5, stage:"小组赛A组", date:"2026-06-21", time:"20:00", teamA:"墨西哥", teamB:"阿根廷"},
+            {id:6, stage:"小组赛A组", date:"2026-06-21", time:"20:00", teamA:"波兰", teamB:"沙特阿拉伯"},
+            {id:7, stage:"小组赛B组", date:"2026-06-12", time:"20:00", teamA:"美国", teamB:"威尔士"},
+            {id:8, stage:"小组赛B组", date:"2026-06-12", time:"23:00", teamA:"英格兰", teamB:"伊朗"},
+            {id:9, stage:"小组赛B组", date:"2026-06-17", time:"20:00", teamA:"美国", teamB:"英格兰"},
+            {id:10, stage:"小组赛B组", date:"2026-06-17", time:"23:00", teamA:"威尔士", teamB:"伊朗"},
+            {id:11, stage:"小组赛B组", date:"2026-06-22", time:"20:00", teamA:"美国", teamB:"伊朗"},
+            {id:12, stage:"小组赛B组", date:"2026-06-22", time:"20:00", teamA:"英格兰", teamB:"威尔士"},
+            {id:13, stage:"小组赛C组", date:"2026-06-13", time:"20:00", teamA:"阿根廷", teamB:"沙特阿拉伯"},
+            {id:14, stage:"小组赛C组", date:"2026-06-13", time:"23:00", teamA:"墨西哥", teamB:"波兰"},
+            {id:15, stage:"小组赛C组", date:"2026-06-18", time:"20:00", teamA:"阿根廷", teamB:"墨西哥"},
+            {id:16, stage:"小组赛C组", date:"2026-06-18", time:"23:00", teamA:"沙特阿拉伯", teamB:"波兰"},
+            {id:17, stage:"小组赛C组", date:"2026-06-23", time:"20:00", teamA:"阿根廷", teamB:"波兰"},
+            {id:18, stage:"小组赛C组", date:"2026-06-23", time:"20:00", teamA:"沙特阿拉伯", teamB:"墨西哥"},
+            {id:19, stage:"小组赛D组", date:"2026-06-14", time:"20:00", teamA:"法国", teamB:"丹麦"},
+            {id:20, stage:"小组赛D组", date:"2026-06-14", time:"23:00", teamA:"突尼斯", teamB:"澳大利亚"},
+            {id:73, stage:"1/32决赛", date:"2026-06-28", time:"20:00", teamA:"待定", teamB:"待定"},
+            {id:81, stage:"1/16决赛", date:"2026-07-02", time:"20:00", teamA:"待定", teamB:"待定"},
+            {id:89, stage:"1/4决赛", date:"2026-07-05", time:"20:00", teamA:"待定", teamB:"待定"},
+            {id:93, stage:"半决赛", date:"2026-07-08", time:"20:00", teamA:"待定", teamB:"待定"},
+            {id:95, stage:"季军赛", date:"2026-07-11", time:"20:00", teamA:"待定", teamB:"待定"},
+            {id:96, stage:"决赛", date:"2026-07-12", time:"20:00", teamA:"待定", teamB:"待定"},
+        ];
+        
+        // 数据存储
+        let data = {
+            predictions: JSON.parse(localStorage.getItem('wc2026_pred') || '{}'),
+            results: JSON.parse(localStorage.getItem('wc2026_res') || '{}'),
+            currentUser: localStorage.getItem('wc2026_user') || ''
+        };
+        
+        // 初始化
+        document.getElementById('user-name').value = data.currentUser;
+        renderPredictList();
+        renderAdminList();
+        startAutoCheck();
+        
+        // 切换标签页
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + '-page').classList.add('active');
+            
+            if (tab === 'ranking') {
+                updateRanking();
+            }
+        }
+        
+        // 保存用户名
+        function saveUserName() {
+            data.currentUser = document.getElementById('user-name').value.trim();
+            localStorage.setItem('wc2026_user', data.currentUser);
+        }
+        
+        // 检查比赛是否已锁定（前5分钟）
+        function isMatchLocked(match) {
+            const matchDateTime = new Date(match.date + 'T' + match.time + ':00');
+            const now = new Date();
+            const diffMinutes = (matchDateTime - now) / (1000 * 60);
+            return diffMinutes <= 5;
+        }
+        
+        // 渲染预测列表
+        function renderPredictList() {
+            const container = document.getElementById('predict-list');
+            container.innerHTML = '';
+            
+            matches.forEach(match => {
+                const pred = (data.predictions[data.currentUser] || {})[match.id] || {};
+                const locked = isMatchLocked(match);
+                
+                const div = document.createElement('div');
+                div.className = 'match-card' + (locked ? ' locked' : '');
+                div.innerHTML = `
+                    <div class="match-stage">${match.stage} | ${match.date} ${match.time}</div>
+                    <div class="match-teams">${match.teamA} vs ${match.teamB}</div>
+                    <div class="prediction">
+                        <input type="number" class="score-input" placeholder="0" 
+                               value="${pred.a || ''}" 
+                               ${locked ? 'disabled' : ''}
+                               onchange="savePred(${match.id}, 'a', this.value)">
+                        <span>vs</span>
+                        <input type="number" class="score-input" placeholder="0" 
+                               value="${pred.b || ''}" 
+                               ${locked ? 'disabled' : ''}
+                               onchange="savePred(${match.id}, 'b', this.value)">
+                    </div>
+                    ${locked ? '<div class="locked-msg">🔒 比赛即将开始，已锁定预测</div>' : ''}
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // 保存预测
+        function savePred(matchId, side, value) {
+            if (!data.currentUser) {
+                alert('请先输入姓名！');
+                return;
+            }
+            
+            // 检查是否已锁定
+            const match = matches.find(m => m.id === matchId);
+            if (match && isMatchLocked(match)) {
+                alert('🔒 比赛开始前5分钟不能修改预测！');
+                renderPredictList();
+                return;
+            }
+            
+            if (!data.predictions[data.currentUser]) {
+                data.predictions[data.currentUser] = {};
+            }
+            
+            if (!data.predictions[data.currentUser][matchId]) {
+                data.predictions[data.currentUser][matchId] = {};
+            }
+            
+            data.predictions[data.currentUser][matchId][side] = value ? parseInt(value) : null;
+            saveToStorage();
+        }
+        
+        // 保存预测按钮
+        function savePredictions() {
+            if (!data.currentUser) {
+                alert('请先输入姓名！');
+                return;
+            }
+            saveToStorage();
+            alert('✅ 预测已保存！\n\n可以点击"实时排名"查看排名');
+        }
+        
+        // 渲染管理员列表
+        function renderAdminList() {
+            const container = document.getElementById('admin-list');
+            container.innerHTML = '';
+            
+            matches.forEach(match => {
+                const res = data.results[match.id] || {};
+                
+                const div = document.createElement('div');
+                div.className = 'match-card';
+                div.innerHTML = `
+                    <div class="match-stage">${match.stage} | ${match.date} ${match.time}</div>
+                    <div class="match-teams">${match.teamA} vs ${match.teamB}</div>
+                    <div class="prediction">
+                        <input type="number" class="score-input" placeholder="实际" 
+                               value="${res.a ?? ''}" 
+                               onchange="saveRes(${match.id}, 'a', this.value)"
+                               style="border-color: #ffc107;">
+                        <span>vs</span>
+                        <input type="number" class="score-input" placeholder="实际" 
+                               value="${res.b ?? ''}" 
+                               onchange="saveRes(${match.id}, 'b', this.value)"
+                               style="border-color: #ffc107;">
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // 保存实际结果
+        function saveRes(matchId, side, value) {
+            if (!data.results[matchId]) data.results[matchId] = {};
+            data.results[matchId][side] = value ? parseInt(value) : null;
+            saveToStorage();
+        }
+        
+        // 保存结果并自动计算得分
+        function saveResults() {
+            saveToStorage();
+            alert('✅ 实际结果已保存！\n系统将自动计算所有人的得分');
+            updateRanking();
+        }
+        
+        // 更新排名
+        function updateRanking() {
+            const users = Object.keys(data.predictions);
+            
+            const rankings = users.map(user => {
+                let score = 0;
+                let exact = 0;
+                let correct = 0;
+                let total = 0;
+                
+                Object.keys(data.predictions[user]).forEach(matchId => {
+                    const pred = data.predictions[user][matchId];
+                    const res = data.results[matchId];
+                    
+                    if (pred && pred.a !== null && pred.b !== null && 
+                        res && res.a !== null && res.b !== null) {
+                        total++;
+                        
+                        // 准确比分：4分
+                        if (pred.a === res.a && pred.b === res.b) {
+                            score += 4;
+                            exact++;
+                        } 
+                        // 猜中胜负：1分
+                        else if (Math.sign(pred.a - pred.b) === Math.sign(res.a - res.b)) {
+                            score += 1;
+                            correct++;
+                        }
+                        // 未猜中：0分（不得分）
+                    }
+                });
+                
+                return { 
+                    user: user, 
+                    score: score, 
+                    exactCount: exact, 
+                    correctCount: correct, 
+                    total: total 
+                };
+            });
+            
+            rankings.sort((a, b) => b.score - a.score);
+            
+            // 更新统计
+            document.getElementById('stat-users').textContent = users.length;
+            
+            const finished = Object.keys(data.results).filter(k => 
+                data.results[k].a !== null && data.results[k].b !== null
+            ).length;
+            document.getElementById('stat-matches').textContent = finished;
+            
+            const avg = rankings.length > 0 
+                ? (rankings.reduce((s, r) => s + r.score, 0) / rankings.length).toFixed(1)
+                : 0;
+            document.getElementById('stat-avg').textContent = avg;
+            
+            // 更新表格
+            const tbody = document.getElementById('ranking-body');
+            tbody.innerHTML = '';
+            
+            rankings.forEach((r, idx) => {
+                const tr = document.createElement('tr');
+                if (idx === 0) tr.className = 'rank-1';
+                else if (idx === 1) tr.className = 'rank-2';
+                else if (idx === 2) tr.className = 'rank-3';
+                
+                tr.innerHTML = `
+                    <td>${idx + 1}</td>
+                    <td>${r.user}</td>
+                    <td><strong>${r.score}</strong></td>
+                    <td>${r.exactCount}</td>
+                    <td>${r.correctCount}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        
+        // 启动自动检查（每分钟检查一次锁定状态）
+        function startAutoCheck() {
+            setInterval(() => {
+                renderPredictList();
+            }, 60000); // 每分钟刷新一次
+        }
+        
+        // 保存到localStorage
+        function saveToStorage() {
+            localStorage.setItem('wc2026_pred', JSON.stringify(data.predictions));
+            localStorage.setItem('wc2026_res', JSON.stringify(data.results));
+            localStorage.setItem('wc2026_user', data.currentUser);
+        }
+    </script>
+</body>
+</html>

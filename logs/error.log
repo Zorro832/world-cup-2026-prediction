@@ -1,0 +1,570 @@
+[2026-05-09 11:24:05 +0000] [2009] [INFO] Starting gunicorn 26.0.0
+[2026-05-09 11:24:05 +0000] [2009] [INFO] Listening at: http://0.0.0.0:5000 (2009)
+[2026-05-09 11:24:05 +0000] [2009] [INFO] Using worker: sync
+[2026-05-09 11:24:05 +0000] [2049] [INFO] Booting worker with pid: 2049
+[2026-05-09 11:24:05 +0000] [2050] [INFO] Booting worker with pid: 2050
+[2026-05-09 11:24:05 +0000] [2051] [INFO] Booting worker with pid: 2051
+[2026-05-09 11:24:05 +0000] [2053] [INFO] Booting worker with pid: 2053
+[2026-05-09 11:24:05 +0000] [2009] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl
+[2026-05-09 11:44:59 +0000] [2009] [INFO] Handling signal: term
+[2026-05-09 11:44:59 +0000] [2049] [INFO] Worker exiting (pid: 2049)
+[2026-05-09 11:44:59 +0000] [2053] [INFO] Worker exiting (pid: 2053)
+[2026-05-09 11:44:59 +0000] [2051] [INFO] Worker exiting (pid: 2051)
+[2026-05-09 11:44:59 +0000] [2050] [INFO] Worker exiting (pid: 2050)
+[2026-05-09 11:44:59 +0000] [2009] [INFO] Worker (pid:2049) was sent SIGTERM!
+[2026-05-09 11:44:59 +0000] [2009] [INFO] Worker (pid:2050) was sent SIGTERM!
+[2026-05-09 11:44:59 +0000] [2009] [INFO] Worker (pid:2051) was sent SIGTERM!
+[2026-05-09 11:44:59 +0000] [2009] [INFO] Worker (pid:2053) was sent SIGTERM!
+[2026-05-09 11:44:59 +0000] [2009] [INFO] Shutting down: Master
+[2026-05-09 12:52:42 +0000] [1688] [INFO] Starting gunicorn 26.0.0
+[2026-05-09 12:52:42 +0000] [1688] [INFO] Listening at: http://0.0.0.0:5000 (1688)
+[2026-05-09 12:52:42 +0000] [1688] [INFO] Using worker: sync
+[2026-05-09 12:52:42 +0000] [1733] [INFO] Booting worker with pid: 1733
+[2026-05-09 12:52:42 +0000] [1735] [INFO] Booting worker with pid: 1735
+[2026-05-09 12:52:42 +0000] [1736] [INFO] Booting worker with pid: 1736
+[2026-05-09 12:52:42 +0000] [1737] [INFO] Booting worker with pid: 1737
+[2026-05-09 12:52:42 +0000] [1688] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl
+[2026-05-09 12:55:41 +0000] [1688] [INFO] Handling signal: term
+[2026-05-09 12:55:41 +0000] [1737] [INFO] Worker exiting (pid: 1737)
+[2026-05-09 12:55:41 +0000] [1736] [INFO] Worker exiting (pid: 1736)
+[2026-05-09 12:55:41 +0000] [1733] [INFO] Worker exiting (pid: 1733)
+[2026-05-09 12:55:41 +0000] [1735] [INFO] Worker exiting (pid: 1735)
+[2026-05-09 12:55:41 +0000] [1688] [INFO] Worker (pid:1733) was sent SIGTERM!
+[2026-05-09 12:55:41 +0000] [1688] [INFO] Worker (pid:1735) was sent SIGTERM!
+[2026-05-09 12:55:41 +0000] [1688] [INFO] Worker (pid:1736) was sent SIGTERM!
+[2026-05-09 12:55:41 +0000] [1688] [INFO] Worker (pid:1737) was sent SIGTERM!
+[2026-05-09 12:55:42 +0000] [1688] [INFO] Shutting down: Master
+[2026-05-09 12:57:42 +0000] [2750] [INFO] Starting gunicorn 26.0.0
+[2026-05-09 12:57:42 +0000] [2750] [INFO] Listening at: http://0.0.0.0:5000 (2750)
+[2026-05-09 12:57:42 +0000] [2750] [INFO] Using worker: sync
+[2026-05-09 12:57:42 +0000] [2793] [INFO] Booting worker with pid: 2793
+[2026-05-09 12:57:42 +0000] [2794] [INFO] Booting worker with pid: 2794
+[2026-05-09 12:57:42 +0000] [2795] [INFO] Booting worker with pid: 2795
+[2026-05-09 12:57:42 +0000] [2796] [INFO] Booting worker with pid: 2796
+[2026-05-09 12:57:42 +0000] [2793] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 12:57:42 +0000] [2793] [INFO] Worker exiting (pid: 2793)
+[2026-05-09 12:57:42 +0000] [2794] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 12:57:42 +0000] [2794] [INFO] Worker exiting (pid: 2794)
+[2026-05-09 12:57:42 +0000] [2750] [ERROR] Worker (pid:2793) exited with code 3.
+[2026-05-09 12:57:42 +0000] [2750] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl
+[2026-05-09 12:57:42 +0000] [2795] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 12:57:42 +0000] [2795] [INFO] Worker exiting (pid: 2795)
+[2026-05-09 12:57:42 +0000] [2796] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 12:57:42 +0000] [2796] [INFO] Worker exiting (pid: 2796)
+[2026-05-09 12:57:44 +0000] [2750] [ERROR] Worker (pid:2794) exited with code 3.
+[2026-05-09 13:02:42 +0000] [4337] [INFO] Starting gunicorn 26.0.0
+[2026-05-09 13:02:42 +0000] [4337] [INFO] Listening at: http://0.0.0.0:5000 (4337)
+[2026-05-09 13:02:42 +0000] [4337] [INFO] Using worker: sync
+[2026-05-09 13:02:42 +0000] [4379] [INFO] Booting worker with pid: 4379
+[2026-05-09 13:02:42 +0000] [4379] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 13:02:42 +0000] [4379] [INFO] Worker exiting (pid: 4379)
+[2026-05-09 13:02:42 +0000] [4380] [INFO] Booting worker with pid: 4380
+[2026-05-09 13:02:42 +0000] [4381] [INFO] Booting worker with pid: 4381
+[2026-05-09 13:02:42 +0000] [4380] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 13:02:42 +0000] [4380] [INFO] Worker exiting (pid: 4380)
+[2026-05-09 13:02:42 +0000] [4381] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 13:02:42 +0000] [4381] [INFO] Worker exiting (pid: 4381)
+[2026-05-09 13:02:42 +0000] [4383] [INFO] Booting worker with pid: 4383
+[2026-05-09 13:02:42 +0000] [4337] [ERROR] Worker (pid:4379) exited with code 3.
+[2026-05-09 13:02:42 +0000] [4337] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl
+[2026-05-09 13:02:42 +0000] [4383] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 13:02:42 +0000] [4383] [INFO] Worker exiting (pid: 4383)
+[2026-05-09 13:02:44 +0000] [4337] [ERROR] Worker (pid:4380) exited with code 3.
+[2026-05-09 13:07:42 +0000] [5385] [INFO] Starting gunicorn 26.0.0
+[2026-05-09 13:07:42 +0000] [5385] [INFO] Listening at: http://0.0.0.0:5000 (5385)
+[2026-05-09 13:07:42 +0000] [5385] [INFO] Using worker: sync
+[2026-05-09 13:07:42 +0000] [5427] [INFO] Booting worker with pid: 5427
+[2026-05-09 13:07:42 +0000] [5428] [INFO] Booting worker with pid: 5428
+[2026-05-09 13:07:42 +0000] [5429] [INFO] Booting worker with pid: 5429
+[2026-05-09 13:07:42 +0000] [5427] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 13:07:42 +0000] [5427] [INFO] Worker exiting (pid: 5427)
+[2026-05-09 13:07:42 +0000] [5428] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 13:07:42 +0000] [5428] [INFO] Worker exiting (pid: 5428)
+[2026-05-09 13:07:42 +0000] [5429] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 13:07:42 +0000] [5429] [INFO] Worker exiting (pid: 5429)
+[2026-05-09 13:07:42 +0000] [5431] [INFO] Booting worker with pid: 5431
+[2026-05-09 13:07:42 +0000] [5385] [ERROR] Worker (pid:5427) exited with code 3.
+[2026-05-09 13:07:42 +0000] [5385] [INFO] Control socket listening at /root/.gunicorn/gunicorn.ctl
+[2026-05-09 13:07:42 +0000] [5431] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/arbiter.py", line 713, in spawn_worker
+    worker.init_process()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 136, in init_process
+    self.load_wsgi()
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/workers/base.py", line 148, in load_wsgi
+    self.wsgi = self.app.wsgi()
+                ^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/base.py", line 66, in wsgi
+    self.callable = self.load()
+                    ^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 57, in load
+    return self.load_wsgiapp()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/app/wsgiapp.py", line 47, in load_wsgiapp
+    return util.import_app(self.app_uri)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/gunicorn/util.py", line 411, in import_app
+    mod = importlib.import_module(module)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1206, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1178, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1149, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/workspace/app.py", line 763, in <module>
+    @app.route('/api/knockout/save', methods=['POST'])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 362, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: save_knockout_predictions
+[2026-05-09 13:07:42 +0000] [5431] [INFO] Worker exiting (pid: 5431)
+[2026-05-09 13:07:44 +0000] [5385] [ERROR] Worker (pid:5428) exited with code 3.

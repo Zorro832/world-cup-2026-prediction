@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026世界杯竞猜</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: "Microsoft YaHei", sans-serif; background: #f0f2f5; }
+        
+        .header { 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white; padding: 20px; text-align: center;
+        }
+        .header h1 { font-size: 24px; margin-bottom: 10px; }
+        .rules { 
+            background: rgba(255,255,255,0.2); padding: 10px 20px;
+            border-radius: 20px; display: inline-block; font-size: 14px;
+        }
+        
+        .main { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
+        
+        .card {
+            background: white; border-radius: 10px; padding: 20px;
+            margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .input-group { margin-bottom: 15px; }
+        .input-group label { 
+            display: block; margin-bottom: 8px; 
+            font-weight: bold; color: #333; 
+        }
+        .input-group input, .input-group select { 
+            width: 100%; padding: 10px; border: 2px solid #ddd;
+            border-radius: 6px; font-size: 15px; 
+        }
+        .input-group input:focus { border-color: #1e3c72; outline: none; }
+        
+        .btn {
+            padding: 12px 24px; border: none; border-radius: 6px;
+            font-size: 15px; font-weight: bold; cursor: pointer;
+            transition: all 0.3s; 
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white; 
+        }
+        .btn-success { background: #28a745; color: white; }
+        .btn-warning { background: #ffc107; color: #333; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab {
+            flex: 1; padding: 12px; text-align: center; cursor: pointer;
+            background: white; border-radius: 8px; font-weight: bold;
+            color: #666; transition: all 0.3s;
+        }
+        .tab:hover { background: #f0f0f0; }
+        .tab.active { background: #1e3c72; color: white; }
+        
+        .page { display: none; }
+        .page.active { display: block; }
+        
+        .match-item {
+            background: #f9f9f9; border: 1px solid #e0e0e0;
+            border-radius: 8px; padding: 12px; margin-bottom: 10px;
+        }
+        .match-item.locked { background: #ffe6e6; border-color: #ff9999; }
+        .match-header { font-size: 12px; color: #666; margin-bottom: 5px; }
+        .match-teams { font-size: 16px; font-weight: bold; margin-bottom: 8px; }
+        .prediction-input { 
+            display: flex; align-items: center; gap: 10px; 
+            justify-content: center;
+        }
+        .prediction-input input {
+            width: 60px; padding: 8px; border: 2px solid #ddd;
+            border-radius: 6px; text-align: center; font-size: 16px;
+        }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th { background: #1e3c72; color: white; padding: 10px; }
+        td { padding: 10px; border-bottom: 1px solid #eee; text-align: center; }
+        tr:hover { background: #f5f5f5; }
+        .rank-1 { background: #fff3cd !important; }
+        .rank-2 { background: #e2e3e5 !important; }
+        .rank-3 { background: #fce4d6 !important; }
+        
+        .alert { 
+            padding: 12px; border-radius: 6px; margin-bottom: 15px;
+            background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb;
+        }
+        .alert-warning { 
+            background: #fff3cd; color: #856404; border: 1px solid #ffeaa7;
+        }
+        
+        .stats { 
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 15px; margin-bottom: 20px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 20px; border-radius: 10px;
+            text-align: center;
+        }
+        .stat-number { font-size: 28px; font-weight: bold; }
+        .stat-label { font-size: 13px; opacity: 0.9; }
+        
+        .locked-msg { font-size: 12px; color: #dc3545; margin-top: 5px; }
+        
+        button:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚽ 2026年世界杯竞猜</h1>
+        <div class="rules">
+            准确比分 <strong>4分</strong> | 猜中胜负 <strong>1分</strong> | 未猜中 <strong>0分</strong>
+        </div>
+    </div>
+    
+    <div class="main">
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('predict')">📝 填写预测</div>
+            <div class="tab" onclick="switchTab('ranking')">🏆 查看排名</div>
+            <div class="tab" onclick="switchTab('admin')">⚙️ 管理员</div>
+            <div class="tab" onclick="switchTab('import')">📥 导入数据</div>
+        </div>
+        
+        <!-- 填写预测页面 -->
+        <div id="predict-page" class="page active">
+            <div class="alert alert-warning">
+                💡 请在比赛开始前填写预测，比赛前5分钟将自动锁定
+            </div>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label>你的姓名</label>
+                    <input type="text" id="user-name" placeholder="请输入你的姓名">
+                </div>
+                <button class="btn btn-primary" onclick="saveUserName()">确认姓名</button>
+            </div>
+            
+            <div id="predict-list"></div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-primary" onclick="savePredictions()">💾 保存预测</button>
+                <button class="btn btn-success" onclick="exportData()" style="margin-left: 10px;">📤 导出数据</button>
+            </div>
+        </div>
+        
+        <!-- 查看排名页面 -->
+        <div id="ranking-page" class="page">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-users">0</div>
+                    <div class="stat-label">参与人数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-finished">0</div>
+                    <div class="stat-label">已完成场次</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-avg">0</div>
+                    <div class="stat-label">平均得分</div>
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>排名</th>
+                        <th>姓名</th>
+                        <th>总积分</th>
+                        <th>准确比分</th>
+                        <th>猜中胜负</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-body"></tbody>
+            </table>
+        </div>
+        
+        <!-- 管理员页面 -->
+        <div id="admin-page" class="page">
+            <div class="alert">
+                ⚙️ 管理员：填写实际比赛结果，系统将自动计算得分
+            </div>
+            
+            <div class="card">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <div class="input-group">
+                        <label>比赛ID</label>
+                        <input type="number" id="admin-match-id" placeholder="输入比赛ID">
+                    </div>
+                    <div class="input-group">
+                        <label>实际比分A</label>
+                        <input type="number" id="admin-score-a" placeholder="主队">
+                    </div>
+                    <div class="input-group">
+                        <label>实际比分B</label>
+                        <input type="number" id="admin-score-b" placeholder="客队">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="saveResult()">💾 保存结果</button>
+            </div>
+            
+            <div id="admin-matches"></div>
+        </div>
+        
+        <!-- 导入数据页面 -->
+        <div id="import-page" class="page">
+            <div class="alert">
+                📥 管理员：导入所有参与者的预测数据文件，自动汇总计算
+            </div>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label>选择预测数据文件（可多选）</label>
+                    <input type="file" id="file-input" multiple accept=".json">
+                </div>
+                <button class="btn btn-primary" onclick="importFiles()">📥 导入并汇总</button>
+            </div>
+            
+            <div id="import-result"></div>
+        </div>
+    </div>
+    
+    <script>
+        // 2026年世界杯比赛数据（示例20场，实际应104场）
+        const MATCHES = [
+            {id:1, stage:"小组赛A组", date:"2026-06-11", time:"20:00", teamA:"墨西哥", teamB:"波兰"},
+            {id:2, stage:"小组赛A组", date:"2026-06-11", time:"23:00", teamA:"阿根廷", teamB:"沙特阿拉伯"},
+            {id:3, stage:"小组赛A组", date:"2026-06-16", time:"20:00", teamA:"墨西哥", teamB:"沙特阿拉伯"},
+            {id:4, stage:"小组赛A组", date:"2026-06-16", time:"23:00", teamA:"阿根廷", teamB:"波兰"},
+            {id:5, stage:"小组赛A组", date:"2026-06-21", time:"20:00", teamA:"墨西哥", teamB:"阿根廷"},
+            {id:6, stage:"小组赛A组", date:"2026-06-21", time:"20:00", teamA:"波兰", teamB:"沙特阿拉伯"},
+            {id:7, stage

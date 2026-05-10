@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pid
+
+# 数据库备份（不提交，每次重新生成）
+backups/
+*.db
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件
+preview.html
+result.html
+worldcup*.html
+app.pid
+
+# 备份的和测试的文件
+*.bak
+*_buggy_backup.*
+*_backup.*
+
+# 不需要的旧脚本
+add_matches*.py
+create_world_cup.py
+fix_*.py
+rebuild_db.py
+reset_db.py
+update_*.py
+world_cup_*.py
+keep_alive.sh
+start_gunicorn.sh
+
+# 导出的Excel/HTML
+*.xlsx
+*.xls
+*.html
