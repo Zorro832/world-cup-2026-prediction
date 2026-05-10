@@ -428,7 +428,7 @@
                     stopTimers();
                 }
             };
-            xhr.send(JSON.stringify({user: ''}));
+            xhr.send(JSON.stringify({user_name: ''}));
         }
         
         // ============= 填写预测 =============
@@ -529,7 +529,7 @@
                     else alert(data.message);
                 }
             };
-            xhr.send(JSON.stringify({user: currentUser, match_id: id, pred_a: parseInt(a), pred_b: parseInt(b)}));
+            xhr.send(JSON.stringify({user_name: currentUser, match_id: id, pred_a: parseInt(a), pred_b: parseInt(b)}));
         }
         
         function showMatchDetail(id) {
@@ -721,7 +721,7 @@
                     else alert(data.message);
                 }
             };
-            xhr.send(JSON.stringify({user: currentUser, predictions: preds}));
+            xhr.send(JSON.stringify({user_name: currentUser, predictions: preds}));
         }
         
         // ============= 管理员 =============
