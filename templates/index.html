@@ -179,8 +179,8 @@
             <h1>2026年世界杯竞猜</h1>
             <div class="rules">
                 <strong>常规时间：</strong>猜对比比 <strong>4分</strong> | 猜对胜负 <strong>1分</strong><br>
-                <strong>加时赛：</strong>猜对比 <strong>4分</strong> | 猜对胜负 <strong>1分</strong>（仅常规平局可猜）<br>
-                <strong>点球：</strong>猜对比 <strong>4分</strong> | 猜对胜负 <strong>1分</strong>（仅加时平局可猜）<br>
+                <strong>加时赛：</strong>猜对比 <strong>4分</strong> | 猜对胜负 <strong>1分</strong>（仅淘汰赛+常规平局可猜）<br>
+                <strong>点球：</strong>猜对比 <strong>4分</strong> | 猜对胜负 <strong>1分</strong>（仅淘汰赛+加时平局可猜）<br>
                 <strong>晋级：</strong>32强1/16强2/8强4/4强6/2强8/冠军10
             </div>
         </div>
@@ -331,23 +331,36 @@
                         <div class="input-group"><label>客队</label><input type="text" id="m-team-b" placeholder="客队"></div>
                         <button class="btn btn-block" onclick="addMatch()">添加比赛</button>
                     </div>
+                    <!-- Admin: Edit match teams -->
+                    <div class="admin-section">
+                        <h3>修改淘汰赛队伍</h3>
+                        <p style="font-size:13px;color:#666;margin-bottom:10px;">
+                            淘汰赛阶段队伍待定时，可在此修改对阵队伍名称。
+                        </p>
+                        <div class="input-group"><label>比赛ID</label><input type="number" id="edit-match-id" placeholder="输入比赛ID"></div>
+                        <div style="display:flex; gap:10px;">
+                            <div class="input-group" style="flex:1;"><label>主队</label><input type="text" id="edit-team-a" placeholder="主队名称"></div>
+                            <div class="input-group" style="flex:1;"><label>客队</label><input type="text" id="edit-team-b" placeholder="客队名称"></div>
+                        </div>
+                        <button class="btn btn-block" onclick="editMatchTeams()">修改队伍</button>
+                    </div>
                     <!-- Admin: Save result -->
                     <div class="admin-section">
                         <h3>输入实际比分</h3>
-                        <div class="input-group"><label>比赛ID</label><input type="number" id="r-match-id" placeholder="ID"></div>
+                        <div class="input-group"><label>比赛ID（点击比赛列表中的"改队伍"按钮可自动填入ID）</label><input type="number" id="r-match-id" placeholder="ID"></div>
                         <div style="display:flex; gap:10px;">
-                            <div class="input-group" style="flex:1;"><label>主队得分</label><input type="number" id="r-actual-a" placeholder="得分"></div>
-                            <div class="input-group" style="flex:1;"><label>客队得分</label><input type="number" id="r-actual-b" placeholder="得分"></div>
+                            <div class="input-group" style="flex:1;"><label>主队得分</label><input type="number" id="r-actual-a" placeholder="得分" oninput="onAdminResultInput()"></div>
+                            <div class="input-group" style="flex:1;"><label>客队得分</label><input type="number" id="r-actual-b" placeholder="得分" oninput="onAdminResultInput()"></div>
                         </div>
-                        <div class="extra-time-section">
+                        <div class="extra-time-section" id="admin-extra-section" style="display:none;">
                             <label>加时赛比分（常规时间平局时填写）</label>
                             <div class="score-row">
-                                <input class="score-input" type="number" id="r-extra-a" placeholder="主">
+                                <input class="score-input" type="number" id="r-extra-a" placeholder="主" oninput="onAdminExtraInput()">
                                 <span>vs</span>
-                                <input class="score-input" type="number" id="r-extra-b" placeholder="客">
+                                <input class="score-input" type="number" id="r-extra-b" placeholder="客" oninput="onAdminExtraInput()">
                             </div>
                         </div>
-                        <div class="penalty-section">
+                        <div class="penalty-section" id="admin-penalty-section" style="display:none;">
                             <label>点球比分（加时赛平局时填写）</label>
                             <div class="score-row">
                                 <input class="score-input" type="number" id="r-penalty-a" placeholder="主">
@@ -548,6 +561,9 @@
                     resultText += '</span>';
                 }
 
+                var KNOCKOUT_STAGES = ['32强', '16强', '8强', '半决赛', '季军赛', '决赛'];
+                var isKnockout = KNOCKOUT_STAGES.indexOf(m.stage) >= 0;
+
                 var html = '<div class="match-row">' +
                     '<div class="match-info">' +
                         '<div class="match-stage">' + m.stage + ' | ID:' + m.id + statusIcon + '</div>' +
@@ -555,32 +571,34 @@
                         '<div class="match-datetime">' + fmtTime(m.match_datetime) + '</div>' +
                     '</div>' +
                     '<div class="match-prediction">' +
-                        '<input class="score-input" id="pa-' + m.id + '" value="' + pa + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
+                        '<input class="score-input" id="pa-' + m.id + '" value="' + pa + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" oninput="onPredInput(' + m.id + ')">' +
                         '<span>vs</span>' +
-                        '<input class="score-input" id="pb-' + m.id + '" value="' + pb + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
+                        '<input class="score-input" id="pb-' + m.id + '" value="' + pb + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" oninput="onPredInput(' + m.id + ')">' +
                         resultText +
                     '</div>' +
                 '</div>';
 
-                // Extra time section (conditionally shown)
-                html += '<div class="extra-time-section" id="extra-section-' + m.id + '" style="display:none;">' +
-                    '<label>加时赛比分</label>' +
-                    '<div class="score-row">' +
-                        '<input class="score-input" id="pea-' + m.id + '" value="' + pea + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
-                        '<span>vs</span>' +
-                        '<input class="score-input" id="peb-' + m.id + '" value="' + peb + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
-                    '</div>' +
-                '</div>';
+                // Extra time section (only for knockout stage, conditionally shown)
+                if (isKnockout) {
+                    html += '<div class="extra-time-section" id="extra-section-' + m.id + '" style="display:none;">' +
+                        '<label>加时赛比分</label>' +
+                        '<div class="score-row">' +
+                            '<input class="score-input" id="pea-' + m.id + '" value="' + pea + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" oninput="onPredInput(' + m.id + ')">' +
+                            '<span>vs</span>' +
+                            '<input class="score-input" id="peb-' + m.id + '" value="' + peb + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" oninput="onPredInput(' + m.id + ')">' +
+                        '</div>' +
+                    '</div>';
 
-                // Penalty section (conditionally shown)
-                html += '<div class="penalty-section" id="penalty-section-' + m.id + '" style="display:none;">' +
-                    '<label>点球比分（必须分出胜负）</label>' +
-                    '<div class="score-row">' +
-                        '<input class="score-input" id="ppa-' + m.id + '" value="' + ppa + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
-                        '<span>vs</span>' +
-                        '<input class="score-input" id="ppb-' + m.id + '" value="' + ppb + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
-                    '</div>' +
-                '</div>';
+                    // Penalty section (conditionally shown)
+                    html += '<div class="penalty-section" id="penalty-section-' + m.id + '" style="display:none;">' +
+                        '<label>点球比分（必须分出胜负）</label>' +
+                        '<div class="score-row">' +
+                            '<input class="score-input" id="ppa-' + m.id + '" value="' + ppa + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" oninput="onPredInput(' + m.id + ')">' +
+                            '<span>vs</span>' +
+                            '<input class="score-input" id="ppb-' + m.id + '" value="' + ppb + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" oninput="onPredInput(' + m.id + ')">' +
+                        '</div>' +
+                    '</div>';
+                }
 
                 html += '<div style="margin-top:8px;">' +
                     '<button class="btn btn-small" onclick="showMatchDetail(' + m.id + ')">查看他人预测</button>' +
@@ -589,8 +607,10 @@
                 div.innerHTML = html;
                 c.appendChild(div);
 
-                // Show/hide extra time and penalty based on current values
-                updateExtraPenaltyVisibility(m.id, pa, pb, pea, peb);
+                // Show/hide extra time and penalty based on current values (knockout only)
+                if (isKnockout) {
+                    updateExtraPenaltyVisibility(m.id, pa, pb, pea, peb);
+                }
             }
         }
 
@@ -607,41 +627,54 @@
                     penaltySection.style.display = 'block';
                 } else {
                     penaltySection.style.display = 'none';
+                    // Clear penalty if extra not a draw
+                    var ppaEl = document.getElementById('ppa-' + id);
+                    var ppbEl = document.getElementById('ppb-' + id);
+                    if (ppaEl) ppaEl.value = '';
+                    if (ppbEl) ppbEl.value = '';
                 }
             } else {
                 extraSection.style.display = 'none';
                 penaltySection.style.display = 'none';
-            }
-        }
-
-        function onPredChange(id) {
-            var pa = document.getElementById('pa-' + id).value;
-            var pb = document.getElementById('pb-' + id).value;
-
-            // If not a draw, clear extra/penalty
-            if (pa !== '' && pb !== '' && parseInt(pa) !== parseInt(pb)) {
+                // Clear extra/penalty if not a draw
                 var peaEl = document.getElementById('pea-' + id);
                 var pebEl = document.getElementById('peb-' + id);
-                var ppaEl = document.getElementById('ppa-' + id);
-                var ppbEl = document.getElementById('ppb-' + id);
-                if (peaEl) peaEl.value = '';
-                if (pebEl) pebEl.value = '';
-                if (ppaEl) ppaEl.value = '';
-                if (ppbEl) ppbEl.value = '';
-            }
-
-            var pea = document.getElementById('pea-' + id) ? document.getElementById('pea-' + id).value : '';
-            var peb = document.getElementById('peb-' + id) ? document.getElementById('peb-' + id).value : '';
-
-            // If extra time not a draw, clear penalty
-            if (pea !== '' && peb !== '' && parseInt(pea) !== parseInt(peb)) {
                 var ppaEl2 = document.getElementById('ppa-' + id);
                 var ppbEl2 = document.getElementById('ppb-' + id);
+                if (peaEl) peaEl.value = '';
+                if (pebEl) pebEl.value = '';
                 if (ppaEl2) ppaEl2.value = '';
                 if (ppbEl2) ppbEl2.value = '';
             }
+        }
 
+        // Real-time input handler: only updates visibility, does NOT save
+        var saveTimers = {};
+        function onPredInput(id) {
+            var pa = document.getElementById('pa-' + id).value;
+            var pb = document.getElementById('pb-' + id).value;
+            var peaEl = document.getElementById('pea-' + id);
+            var pebEl = document.getElementById('peb-' + id);
+            var pea = peaEl ? peaEl.value : '';
+            var peb = pebEl ? pebEl.value : '';
             updateExtraPenaltyVisibility(id, pa, pb, pea, peb);
+
+            // Debounced auto-save (1.5s after last input)
+            if (saveTimers[id]) clearTimeout(saveTimers[id]);
+            saveTimers[id] = setTimeout(function() { autoSave(id); }, 1500);
+        }
+
+        // On change (field loses focus or Enter): save immediately + update visibility
+        function onPredChange(id) {
+            var pa = document.getElementById('pa-' + id).value;
+            var pb = document.getElementById('pb-' + id).value;
+            var peaEl = document.getElementById('pea-' + id);
+            var pebEl = document.getElementById('peb-' + id);
+            var pea = peaEl ? peaEl.value : '';
+            var peb = pebEl ? pebEl.value : '';
+            updateExtraPenaltyVisibility(id, pa, pb, pea, peb);
+
+            if (saveTimers[id]) clearTimeout(saveTimers[id]);
             autoSave(id);
         }
 
@@ -668,7 +701,7 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
                     if (data.success) showToast('已保存');
-                    else alert(data.message);
+                    else showToast(data.message);
                 }
             };
             xhr.send(JSON.stringify({
@@ -873,7 +906,7 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
                     if (data.success) showToast('晋级竞猜已保存！');
-                    else alert(data.message);
+                    else showToast(data.message);
                 }
             };
             xhr.send(JSON.stringify({user: currentUser, predictions: preds}));
@@ -971,7 +1004,7 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
                     if (data.success) { showToast('实际晋级队伍已保存！'); loadAdminKoActual(); }
-                    else alert(data.message);
+                    else showToast(data.message);
                 }
             };
             xhr.send(JSON.stringify({round: round, teams: teams}));
@@ -1003,6 +1036,37 @@
             xhr.send();
         }
 
+        function quickEditTeams(id, teamA, teamB) {
+            document.getElementById('edit-match-id').value = id;
+            document.getElementById('edit-team-a').value = teamA;
+            document.getElementById('edit-team-b').value = teamB;
+            document.getElementById('edit-match-id').scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+
+        function editMatchTeams() {
+            var id = document.getElementById('edit-match-id').value;
+            var a = document.getElementById('edit-team-a').value.trim();
+            var b = document.getElementById('edit-team-b').value.trim();
+            if (!id || !a || !b) { showToast('请填写完整！'); return; }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/api/admin/update_match_teams', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    if (data.success) {
+                        showToast('队伍已修改！');
+                        document.getElementById('edit-match-id').value = '';
+                        document.getElementById('edit-team-a').value = '';
+                        document.getElementById('edit-team-b').value = '';
+                        loadAdminMatchList();
+                    } else showToast(data.message);
+                }
+            };
+            xhr.send(JSON.stringify({match_id: parseInt(id), team_a: a, team_b: b}));
+        }
+
         function addMatch() {
             var stage = document.getElementById('m-stage').value;
             var dt = document.getElementById('m-datetime').value;
@@ -1022,10 +1086,41 @@
                         document.getElementById('m-team-a').value = '';
                         document.getElementById('m-team-b').value = '';
                         loadAdminMatchList();
-                    } else alert(data.message);
+                    } else showToast(data.message);
                 }
             };
             xhr.send(JSON.stringify({stage: stage, match_datetime: dt.replace('T', ' ') + ':00', team_a: a, team_b: b}));
+        }
+
+        // Admin result input: show/hide extra/penalty sections dynamically
+        function onAdminResultInput() {
+            var a = document.getElementById('r-actual-a').value;
+            var b = document.getElementById('r-actual-b').value;
+            var extraSection = document.getElementById('admin-extra-section');
+            var penaltySection = document.getElementById('admin-penalty-section');
+            if (a !== '' && b !== '' && parseInt(a) === parseInt(b)) {
+                extraSection.style.display = 'block';
+            } else {
+                extraSection.style.display = 'none';
+                penaltySection.style.display = 'none';
+                document.getElementById('r-extra-a').value = '';
+                document.getElementById('r-extra-b').value = '';
+                document.getElementById('r-penalty-a').value = '';
+                document.getElementById('r-penalty-b').value = '';
+            }
+        }
+
+        function onAdminExtraInput() {
+            var ea = document.getElementById('r-extra-a').value;
+            var eb = document.getElementById('r-extra-b').value;
+            var penaltySection = document.getElementById('admin-penalty-section');
+            if (ea !== '' && eb !== '' && parseInt(ea) === parseInt(eb)) {
+                penaltySection.style.display = 'block';
+            } else {
+                penaltySection.style.display = 'none';
+                document.getElementById('r-penalty-a').value = '';
+                document.getElementById('r-penalty-b').value = '';
+            }
         }
 
         function saveResult() {
@@ -1055,7 +1150,7 @@
                         document.getElementById('r-penalty-a').value = '';
                         document.getElementById('r-penalty-b').value = '';
                         loadAdminMatchList();
-                    } else alert(data.message);
+                    } else showToast(data.message);
                 }
             };
             xhr.send(JSON.stringify({
@@ -1099,6 +1194,7 @@
                             '<div style="font-size:12px;color:#666;margin:5px 0;">时间：' + fmtTime(m.match_datetime) + '</div>' +
                             '<div style="font-size:12px;color:#666;margin-bottom:8px;">实际：' + actualText + '</div>' +
                             '<div style="display:flex;gap:8px;">' +
+                                '<button class="btn btn-small" onclick="quickEditTeams(' + m.id + ',\'' + m.team_a.replace(/'/g, "\\'") + '\',\'' + m.team_b.replace(/'/g, "\\'") + '\')">改队伍</button>' +
                                 deleteResultBtn +
                                 '<button class="btn btn-small btn-danger" onclick="deleteMatch(' + m.id + ')">删比赛</button>' +
                             '</div>';
@@ -1119,7 +1215,7 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
                     if (data.success) { showToast('已删除比分！'); loadAdminMatchList(); }
-                    else alert(data.message);
+                    else showToast(data.message);
                 }
             };
             xhr.send(JSON.stringify({match_id: id}));
@@ -1135,7 +1231,7 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
                     if (data.success) { showToast('已删除！'); loadAdminMatchList(); }
-                    else alert(data.message);
+                    else showToast(data.message);
                 }
             };
             xhr.send(JSON.stringify({id: id}));
