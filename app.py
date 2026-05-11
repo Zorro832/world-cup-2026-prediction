@@ -2,12 +2,67 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, jsonify, session
 from datetime import datetime, timedelta
-import sqlite3
+import os
 import json
 
 app = Flask(__name__)
-app.secret_key = 'world_cup_2026_secret_key'
-ADMIN_PASSWORD = 'admin123'
+app.secret_key = os.environ.get('SECRET_KEY', 'world_cup_2026_secret_key')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
+
+DATABASE_URL = os.environ.get('DATABASE_URL')
+print(f'[启动] DATABASE_URL: {"已设置" if DATABASE_URL else "未设置(使用SQLite)"}')
+
+if DATABASE_URL:
+    try:
+        import psycopg2
+        from psycopg2.extras import RealDictCursor
+        print('[启动] psycopg2 导入成功')
+    except ImportError as e:
+        print(f'[启动] psycopg2 导入失败: {e}，尝试pg8000...')
+        try:
+            import pg8000
+            print('[启动] pg8000 导入成功')
+        except ImportError as e2:
+            print(f'[启动] pg8000 也导入失败: {e2}，回退SQLite')
+            DATABASE_URL = None
+
+    if DATABASE_URL:
+        def get_db():
+            conn = psycopg2.connect(DATABASE_URL)
+            conn.autocommit = True
+            return conn
+
+        PH = '%s'
+
+        def upsert_predictions(cur, user, match_id, pred_a, pred_b):
+            cur.execute('''INSERT INTO predictions (user_name, match_id, pred_a, pred_b) VALUES (%s, %s, %s, %s) ON CONFLICT (user_name, match_id) DO UPDATE SET pred_a=EXCLUDED.pred_a, pred_b=EXCLUDED.pred_b''', (user, match_id, pred_a, pred_b))
+
+        def upsert_knockouts(cur, user, rnd, teams_json):
+            cur.execute('''INSERT INTO knockouts (user_name, round_name, predicted_teams) VALUES (%s, %s, %s) ON CONFLICT (user_name, round_name) DO UPDATE SET predicted_teams=EXCLUDED.predicted_teams''', (user, rnd, teams_json))
+
+        def upsert_knockout_actual(cur, rnd, teams_json):
+            cur.execute('''INSERT INTO knockout_actual (round_name, actual_teams) VALUES (%s, %s) ON CONFLICT (round_name) DO UPDATE SET actual_teams=EXCLUDED.actual_teams''', (rnd, teams_json))
+        print('[启动] PostgreSQL模式已配置')
+
+if not DATABASE_URL:
+    import sqlite3
+
+    def get_db():
+        conn = sqlite3.connect('world_cup_2026.db')
+        conn.row_factory = sqlite3.Row
+        return conn
+
+    PH = '?'
+
+    def upsert_predictions(cur, user, match_id, pred_a, pred_b):
+        cur.execute('INSERT OR REPLACE INTO predictions (user_name, match_id, pred_a, pred_b) VALUES (?, ?, ?, ?)', (user, match_id, pred_a, pred_b))
+
+    def upsert_knockouts(cur, user, rnd, teams_json):
+        cur.execute('INSERT OR REPLACE INTO knockouts (user_name, round_name, predicted_teams) VALUES (?, ?, ?)', (user, rnd, teams_json))
+
+    def upsert_knockout_actual(cur, rnd, teams_json):
+        cur.execute('INSERT OR REPLACE INTO knockout_actual (round_name, actual_teams) VALUES (?, ?)', (rnd, teams_json))
+    print('[启动] SQLite模式已配置')
 
 def get_db():
     conn = sqlite3.connect('world_cup_2026.db')
@@ -608,6 +663,7 @@ def get_all_users():
     return jsonify(success=True, users=users)
 
 if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
     print('启动2026世界杯竞猜...')
-    print('http://0.0.0.0:5000')
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    print('http://0.0.0.0:%d' % port)
+    app.run(host='0.0.0.0', port=port, debug=False)
