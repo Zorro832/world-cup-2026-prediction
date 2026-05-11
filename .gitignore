@@ -37,3 +37,5 @@ start_gunicorn.sh
 *.xlsx
 *.xls
 *.html
+__pycache__/
+*.db

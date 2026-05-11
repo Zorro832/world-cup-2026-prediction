@@ -6,30 +6,31 @@
     <title>2026世界杯竞猜</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
-            min-height:100vh; padding:10px; 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height:100vh; padding:10px;
         }
-        .container { 
-            max-width:900px; margin:0 auto; background:white; 
-            border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.3); 
-            overflow:hidden; 
+        .container {
+            max-width:900px; margin:0 auto; background:white;
+            border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.3);
+            overflow:hidden;
         }
-        .header { 
-            background:linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); 
-            color:white; padding:20px; text-align:center; 
+        .header {
+            background:linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color:white; padding:20px; text-align:center;
         }
         .header h1 { font-size:24px; margin-bottom:10px; }
-        .rules { 
-            background:rgba(255,255,255,0.15); padding:10px 20px; 
-            border-radius:20px; font-size:13px; display:inline-block; 
+        .rules {
+            background:rgba(255,255,255,0.15); padding:10px 20px;
+            border-radius:20px; font-size:12px; display:inline-block; text-align:left;
+            line-height:1.8;
         }
         .tabs { display:flex; background:#f5f5f5; border-bottom:2px solid #ddd; }
-        .tab { 
-            flex:1; padding:12px; text-align:center; cursor:pointer; 
-            font-weight:bold; font-size:13px; color:#666; 
-            border-bottom:3px solid transparent; transition:all 0.3s; 
+        .tab {
+            flex:1; padding:12px; text-align:center; cursor:pointer;
+            font-weight:bold; font-size:13px; color:#666;
+            border-bottom:3px solid transparent; transition:all 0.3s;
         }
         .tab:hover { background:#e0e0e0; }
         .tab.active { background:white; color:#1e3c72; border-bottom-color:#1e3c72; }
@@ -38,24 +39,24 @@
         .page.active { display:block; }
         .input-group { margin-bottom:15px; }
         .input-group label { display:block; margin-bottom:8px; font-weight:bold; color:#333; font-size:14px; }
-        .input-group input, .input-group select { 
-            width:100%; padding:10px; border:2px solid #ddd; 
-            border-radius:8px; font-size:15px; 
+        .input-group input, .input-group select {
+            width:100%; padding:10px; border:2px solid #ddd;
+            border-radius:8px; font-size:15px;
         }
-        .btn { 
-            padding:10px 25px; border:none; border-radius:8px; 
-            font-size:15px; font-weight:bold; cursor:pointer; 
-            transition:all 0.3s; 
-            background:linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color:white; 
+        .btn {
+            padding:10px 25px; border:none; border-radius:8px;
+            font-size:15px; font-weight:bold; cursor:pointer;
+            transition:all 0.3s;
+            background:linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color:white;
         }
         .btn:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(0,0,0,0.2); }
         .btn-block { width:100%; margin-top:10px; }
         .btn-small { padding:6px 12px; font-size:13px; }
         .btn-danger { background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
-        .match-card { 
-            background:#f9f9f9; border:1px solid #e0e0e0; 
-            border-radius:10px; padding:12px; margin-bottom:10px; 
-            transition:all 0.3s; 
+        .match-card {
+            background:#f9f9f9; border:1px solid #e0e0e0;
+            border-radius:10px; padding:12px; margin-bottom:10px;
+            transition:all 0.3s;
         }
         .match-card.locked { background:#fff3cd; border-color:#ffc107; }
         .match-card.finished { background:#d4edda; border-color:#28a745; }
@@ -63,25 +64,40 @@
         .match-info { flex:1; min-width:160px; }
         .match-stage { font-size:11px; color:#666; margin-bottom:3px; }
         .match-teams { font-size:15px; font-weight:bold; color:#333; }
-        .match-prediction { display:flex; align-items:center; gap:8px; }
-        .score-input { 
-            width:50px; padding:6px; border:2px solid #ddd; 
-            border-radius:8px; text-align:center; font-size:16px; font-weight:bold; 
+        .match-prediction { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+        .score-input {
+            width:50px; padding:6px; border:2px solid #ddd;
+            border-radius:8px; text-align:center; font-size:16px; font-weight:bold;
         }
         .score-input:focus { border-color:#1e3c72; outline:none; }
         .score-input:disabled { background:#f0f0f0; color:#999; }
         .match-result { font-size:14px; color:#28a745; font-weight:bold; margin-left:10px; }
         .match-datetime { font-size:11px; color:#888; margin-top:3px; }
+        .extra-time-section {
+            margin-top:8px; padding:8px; background:#fff8e1;
+            border-radius:6px; border:1px solid #ffe082;
+        }
+        .extra-time-section label {
+            font-size:12px; font-weight:bold; color:#f57f17; margin-bottom:4px; display:block;
+        }
+        .penalty-section {
+            margin-top:8px; padding:8px; background:#fce4ec;
+            border-radius:6px; border:1px solid #f48fb1;
+        }
+        .penalty-section label {
+            font-size:12px; font-weight:bold; color:#c62828; margin-bottom:4px; display:block;
+        }
+        .score-row { display:flex; align-items:center; gap:8px; margin-top:4px; }
         .stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:20px; }
-        .stat-card { 
-            background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color:white; padding:15px; border-radius:10px; text-align:center; 
+        .stat-card {
+            background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color:white; padding:15px; border-radius:10px; text-align:center;
         }
         .stat-number { font-size:24px; font-weight:bold; }
         .stat-label { font-size:12px; opacity:0.9; }
         table { width:100%; border-collapse:collapse; }
-        th { background:#1e3c72; color:white; padding:10px; font-size:13px; text-align:center; }
-        td { padding:10px; border-bottom:1px solid #eee; font-size:13px; text-align:center; }
+        th { background:#1e3c72; color:white; padding:8px; font-size:12px; text-align:center; }
+        td { padding:8px; border-bottom:1px solid #eee; font-size:12px; text-align:center; }
         tr:hover { background:#f5f5f5; cursor:pointer; }
         .rank-1 { background:#fff3cd !important; }
         .rank-2 { background:#e2e3e5 !important; }
@@ -108,40 +124,48 @@
         .modal-close { position:absolute; top:15px; right:15px; font-size:24px; cursor:pointer; color:#999; }
         .modal-close:hover { color:#333; }
         .warning { background:#f8d7da; color:#721c24; padding:8px; border-radius:5px; margin-top:5px; font-size:12px; display:none; }
+        .result-tag { font-size:11px; padding:2px 6px; border-radius:4px; margin-left:4px; }
+        .tag-extra { background:#fff3e0; color:#e65100; }
+        .tag-penalty { background:#fce4ec; color:#c62828; }
         @media (max-width: 600px) {
             .stats { grid-template-columns:1fr; }
             .match-row { flex-direction:column; align-items:flex-start; }
+            th, td { padding:6px 4px; font-size:11px; }
         }
     </style>
 </head>
 <body>
     <div class="save-toast" id="save-toast"></div>
-    
-    <!-- 用户详情弹窗 -->
+
+    <!-- User Detail Modal -->
     <div class="modal" id="user-detail-modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeUserDetail()">&times;</span>
             <h2 id="user-detail-name"></h2>
-            <div style="margin:15px 0;">
+            <div style="margin:15px 0; font-size:13px;">
                 <strong>总积分：</strong><span id="user-detail-score" style="font-size:20px;color:#1e3c72;"></span> 分
                 &nbsp;&nbsp;
                 <strong>准确：</strong><span id="user-detail-exact"></span>
                 &nbsp;&nbsp;
                 <strong>胜负：</strong><span id="user-detail-correct"></span>
+                &nbsp;&nbsp;
+                <strong>加时：</strong><span id="user-detail-extra"></span>
+                &nbsp;&nbsp;
+                <strong>点球：</strong><span id="user-detail-penalty"></span>
             </div>
-            <h3>📝 比分预测详情</h3>
+            <h3>比分预测详情</h3>
             <table style="width:100%;border-collapse:collapse;margin-top:10px;font-size:12px;">
                 <thead><tr style="background:#f8f9fa;">
                     <th>比赛</th><th>预测</th><th>实际</th><th>得分</th>
                 </tr></thead>
                 <tbody id="user-detail-body"></tbody>
             </table>
-            <h3 style="margin-top:20px;">🏆 晋级预测详情</h3>
+            <h3 style="margin-top:20px;">晋级预测详情</h3>
             <div id="user-knockout-detail" style="margin-top:10px;font-size:13px;"></div>
         </div>
     </div>
-    
-    <!-- 比赛预测详情弹窗 -->
+
+    <!-- Match Detail Modal -->
     <div class="modal" id="match-detail-modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeMatchDetail()">&times;</span>
@@ -149,29 +173,30 @@
             <div id="match-detail-body"></div>
         </div>
     </div>
-    
+
     <div class="container">
         <div class="header">
-            <h1>⚽ 2026年世界杯竞猜</h1>
+            <h1>2026年世界杯竞猜</h1>
             <div class="rules">
-                准确 <strong>4分</strong> | 猜中胜负 <strong>1分</strong> | 未中 <strong>0分</strong>
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                晋级：32强<strong>1</strong>/16强<strong>2</strong>/8强<strong>4</strong>/4强<strong>6</strong>/2强<strong>8</strong>/冠军<strong>10</strong>
+                <strong>常规时间：</strong>猜对比比 <strong>4分</strong> | 猜对胜负 <strong>1分</strong><br>
+                <strong>加时赛：</strong>猜对比 <strong>4分</strong> | 猜对胜负 <strong>1分</strong>（仅常规平局可猜）<br>
+                <strong>点球：</strong>猜对比 <strong>4分</strong> | 猜对胜负 <strong>1分</strong>（仅加时平局可猜）<br>
+                <strong>晋级：</strong>32强1/16强2/8强4/4强6/2强8/冠军10
             </div>
         </div>
-        
+
         <div class="tabs">
-            <div class="tab active" onclick="switchTab('predict', event)">📝 填写预测</div>
-            <div class="tab" onclick="switchTab('knockout', event)">🏆 竞猜晋级</div>
-            <div class="tab" onclick="switchTab('ranking', event)">📊 实时排名</div>
-            <div class="tab" onclick="switchTab('admin', event)">⚙️ 管理员</div>
+            <div class="tab active" onclick="switchTab('predict', event)">填写预测</div>
+            <div class="tab" onclick="switchTab('knockout', event)">竞猜晋级</div>
+            <div class="tab" onclick="switchTab('ranking', event)">实时排名</div>
+            <div class="tab" onclick="switchTab('admin', event)">管理员</div>
         </div>
-        
+
         <div class="content">
-            <!-- 填写预测 -->
+            <!-- Predict Page -->
             <div id="predict-page" class="page active">
                 <div id="predict-login">
-                    <div class="alert alert-info">💡 请输入姓名开始预测</div>
+                    <div class="alert alert-info">请输入姓名开始预测</div>
                     <div class="input-group">
                         <label>你的姓名</label>
                         <input type="text" id="user-name-input" placeholder="请输入你的姓名" onkeypress="if(event.key==='Enter') saveUserName()">
@@ -180,62 +205,62 @@
                 </div>
                 <div id="predict-area" style="display:none;">
                     <div class="alert alert-success">
-                        👤 <strong id="predict-user-name"></strong>！
+                        <strong id="predict-user-name"></strong>！
                         <button class="btn btn-small" style="float:right;" onclick="logoutUser()">切换用户</button>
                         <div style="clear:both;"></div>
                     </div>
                     <div id="predict-list"></div>
                 </div>
             </div>
-            
-            <!-- 竞猜晋级 -->
+
+            <!-- Knockout Page -->
             <div id="knockout-page" class="page">
                 <div id="knockout-msg" style="display:none;">
-                    <div class="alert alert-warning">⚠️ 请先在"填写预测"页输入姓名，再回来此页竞猜晋级！</div>
+                    <div class="alert alert-warning">请先在"填写预测"页输入姓名，再回来此页竞猜晋级！</div>
                 </div>
                 <div id="knockout-area" style="display:none;">
                     <div class="alert alert-success">
-                        👤 <strong id="ko-user-name"></strong> 的晋级竞猜
+                        <strong id="ko-user-name"></strong> 的晋级竞猜
                         &nbsp;<span style="font-size:12px;color:#999;">（截止：首场比赛前1小时锁定）</span>
                     </div>
                     <div id="knockout-locked-msg" style="display:none;">
-                        <div class="alert alert-warning">🔒 晋级竞猜已锁定！</div>
+                        <div class="alert alert-warning">晋级竞猜已锁定！</div>
                     </div>
                     <div class="admin-section">
-                        <h3>🏆 竞猜32强 <span style="font-size:12px;color:#666;">（选32队，每队1分）</span></h3>
+                        <h3>竞猜32强 <span style="font-size:12px;color:#666;">（选32队，每队1分）</span></h3>
                         <div id="ko-32"></div>
                         <div class="warning" id="ko-32-warning"></div>
                     </div>
                     <div class="admin-section">
-                        <h3>🏆 竞猜16强 <span style="font-size:12px;color:#666;">（选16队，每队2分）</span></h3>
+                        <h3>竞猜16强 <span style="font-size:12px;color:#666;">（选16队，每队2分）</span></h3>
                         <div id="ko-16"></div>
                         <div class="warning" id="ko-16-warning"></div>
                     </div>
                     <div class="admin-section">
-                        <h3>🏆 竞猜8强 <span style="font-size:12px;color:#666;">（选8队，每队4分）</span></h3>
+                        <h3>竞猜8强 <span style="font-size:12px;color:#666;">（选8队，每队4分）</span></h3>
                         <div id="ko-8"></div>
                         <div class="warning" id="ko-8-warning"></div>
                     </div>
                     <div class="admin-section">
-                        <h3>🏆 竞猜4强 <span style="font-size:12px;color:#666;">（选4队，每队6分）</span></h3>
+                        <h3>竞猜4强 <span style="font-size:12px;color:#666;">（选4队，每队6分）</span></h3>
                         <div id="ko-4"></div>
                         <div class="warning" id="ko-4-warning"></div>
                     </div>
                     <div class="admin-section">
-                        <h3>🏆 竞猜2强 <span style="font-size:12px;color:#666;">（选2队，每队8分）</span></h3>
+                        <h3>竞猜2强 <span style="font-size:12px;color:#666;">（选2队，每队8分）</span></h3>
                         <div id="ko-2"></div>
                         <div class="warning" id="ko-2-warning"></div>
                     </div>
                     <div class="admin-section">
-                        <h3>🏆 竞猜冠军 <span style="font-size:12px;color:#666;">（选1队，10分）</span></h3>
+                        <h3>竞猜冠军 <span style="font-size:12px;color:#666;">（选1队，10分）</span></h3>
                         <div id="ko-1"></div>
                         <div class="warning" id="ko-1-warning"></div>
                     </div>
-                    <button class="btn btn-block" id="ko-save-btn" onclick="saveKnockout()">💾 保存晋级竞猜</button>
+                    <button class="btn btn-block" id="ko-save-btn" onclick="saveKnockout()">保存晋级竞猜</button>
                 </div>
             </div>
-            
-            <!-- 实时排名 -->
+
+            <!-- Ranking Page -->
             <div id="ranking-page" class="page">
                 <div class="stats">
                     <div class="stat-card"><div class="stat-number" id="stat-users">0</div><div class="stat-label">参与人数</div></div>
@@ -244,16 +269,16 @@
                 </div>
                 <table>
                     <thead><tr>
-                        <th>排名</th><th>姓名</th><th>总积分</th><th>准确</th><th>胜负</th><th>晋级得分</th>
+                        <th>排名</th><th>姓名</th><th>总分</th><th>准确</th><th>胜负</th><th>加时</th><th>点球</th><th>晋级</th>
                     </tr></thead>
                     <tbody id="ranking-body"></tbody>
                 </table>
             </div>
-            
-            <!-- 管理员 -->
+
+            <!-- Admin Page -->
             <div id="admin-page" class="page">
                 <div id="admin-login-area">
-                    <div class="alert alert-warning">⚙️ 管理员登录</div>
+                    <div class="alert alert-warning">管理员登录</div>
                     <div class="input-group">
                         <label>密码</label>
                         <input type="password" id="admin-pwd" placeholder="请输入管理员密码" onkeypress="if(event.key==='Enter') adminLogin()">
@@ -262,13 +287,13 @@
                 </div>
                 <div id="admin-panel" style="display:none;">
                     <div class="alert alert-success">
-                        ✅ 管理员已登录
+                        管理员已登录
                         <button class="btn btn-small btn-danger" style="float:right;" onclick="adminLogout()">登出</button>
                         <div style="clear:both;"></div>
                     </div>
-                    <!-- 管理员：设置实际晋级队伍 -->
+                    <!-- Admin: Set actual knockout teams -->
                     <div class="admin-section">
-                        <h3>⚙️ 设置实际晋级队伍</h3>
+                        <h3>设置实际晋级队伍</h3>
                         <div class="input-group">
                             <label>选择轮次</label>
                             <select id="admin-ko-round" onchange="renderAdminKoSelects()">
@@ -281,15 +306,15 @@
                             </select>
                         </div>
                         <div id="admin-ko-selects"></div>
-                        <button class="btn btn-block" onclick="saveAdminKoActual()">💾 保存实际晋级队伍</button>
+                        <button class="btn btn-block" onclick="saveAdminKoActual()">保存实际晋级队伍</button>
                     </div>
                     <div class="admin-section">
-                        <h3>📋 已设置的实际晋级</h3>
+                        <h3>已设置的实际晋级</h3>
                         <div id="admin-ko-current"></div>
                     </div>
-                    <!-- 原有管理员功能 -->
+                    <!-- Admin: Add match -->
                     <div class="admin-section">
-                        <h3>➕ 添加比赛</h3>
+                        <h3>添加比赛</h3>
                         <div class="input-group">
                             <label>阶段</label>
                             <select id="m-stage">
@@ -306,35 +331,54 @@
                         <div class="input-group"><label>客队</label><input type="text" id="m-team-b" placeholder="客队"></div>
                         <button class="btn btn-block" onclick="addMatch()">添加比赛</button>
                     </div>
+                    <!-- Admin: Save result -->
                     <div class="admin-section">
-                        <h3>⚽ 输入实际比分</h3>
+                        <h3>输入实际比分</h3>
                         <div class="input-group"><label>比赛ID</label><input type="number" id="r-match-id" placeholder="ID"></div>
-                        <div class="input-group"><label>主队得分</label><input type="number" id="r-actual-a" placeholder="得分"></div>
-                        <div class="input-group"><label>客队得分</label><input type="number" id="r-actual-b" placeholder="得分"></div>
+                        <div style="display:flex; gap:10px;">
+                            <div class="input-group" style="flex:1;"><label>主队得分</label><input type="number" id="r-actual-a" placeholder="得分"></div>
+                            <div class="input-group" style="flex:1;"><label>客队得分</label><input type="number" id="r-actual-b" placeholder="得分"></div>
+                        </div>
+                        <div class="extra-time-section">
+                            <label>加时赛比分（常规时间平局时填写）</label>
+                            <div class="score-row">
+                                <input class="score-input" type="number" id="r-extra-a" placeholder="主">
+                                <span>vs</span>
+                                <input class="score-input" type="number" id="r-extra-b" placeholder="客">
+                            </div>
+                        </div>
+                        <div class="penalty-section">
+                            <label>点球比分（加时赛平局时填写）</label>
+                            <div class="score-row">
+                                <input class="score-input" type="number" id="r-penalty-a" placeholder="主">
+                                <span>vs</span>
+                                <input class="score-input" type="number" id="r-penalty-b" placeholder="客">
+                            </div>
+                        </div>
                         <button class="btn btn-block" onclick="saveResult()">保存实际比分</button>
                     </div>
                     <div class="admin-section">
-                        <h3>📋 比赛列表</h3>
+                        <h3>比赛列表</h3>
                         <div id="admin-match-list"></div>
                     </div>
-                    <!-- 数据备份/恢复 -->
+                    <!-- Data backup/restore -->
                     <div class="admin-section">
-                        <h3>💾 数据备份与恢复</h3>
+                        <h3>数据备份与恢复</h3>
                         <p style="font-size:13px;color:#666;margin-bottom:10px;">
-                            ⚠️ 修改程序前，请先备份数据！修改后可以重新导入恢复。
+                            修改程序前，请先备份数据！修改后可以重新导入恢复。
                         </p>
-                        <button class="btn btn-block" onclick="exportData()" style="margin-bottom:10px;">📥 导出备份数据</button>
+                        <button class="btn btn-block" onclick="exportData()" style="margin-bottom:10px;">导出备份数据</button>
                         <div style="margin-top:10px;">
                             <label style="font-size:13px;color:#666;">从备份文件恢复数据：</label>
                             <input type="file" id="import-file" accept=".json" style="margin:10px 0;font-size:13px;">
-                        <button class="btn btn-block" onclick="importData()">📤 导入恢复数据</button>
+                            <button class="btn btn-block" onclick="importData()">导入恢复数据</button>
                         </div>
                     </div>
-                    <!-- 删除参与者 -->
+                    <!-- Delete user -->
                     <div class="admin-section">
-                        <h3>🗑️ 删除参与者</h3>
+                        <h3>删除参与者</h3>
                         <p style="font-size:13px;color:#666;margin-bottom:10px;">
-                            ⚠️ 删除后该用户的所有预测记录将被清除，且不可恢复！
+                            删除后该用户的所有预测记录将被清除，且不可恢复！
                         </p>
                         <div id="user-list" style="max-height:300px;overflow-y:auto;">
                             <p style="color:#999;">加载中...</p>
@@ -344,7 +388,7 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         var currentUser = '';
         var isAdmin = false;
@@ -353,8 +397,8 @@
         var allTeams = [];
         var lockTimer = null;
         var refreshTimer = null;
-        
-        // ============= 标签页切换 =============
+
+        // ============= Tab switching =============
         function switchTab(name, evt) {
             var tabs = document.querySelectorAll('.tab');
             for (var i = 0; i < tabs.length; i++) {
@@ -373,7 +417,7 @@
                 }
             }
             document.getElementById(name + '-page').classList.add('active');
-            
+
             if (name === 'predict' && currentUser) {
                 showPredictArea();
                 loadPredictList();
@@ -383,15 +427,15 @@
                 loadRanking();
             } else if (name === 'admin' && isAdmin) {
                 loadAdminData();
-                loadUserList();  // ✅ 每次切换到管理员页签时刷新用户列表
+                loadUserList();
             }
         }
-        
-        // ============= 用户登录/登出 =============
+
+        // ============= User login/logout =============
         function saveUserName() {
             var name = document.getElementById('user-name-input').value.trim();
             if (!name) { alert('请输入姓名！'); return; }
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/set_user', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -408,13 +452,13 @@
             };
             xhr.send(JSON.stringify({user: name}));
         }
-        
+
         function showPredictArea() {
             document.getElementById('predict-login').style.display = 'none';
             document.getElementById('predict-area').style.display = 'block';
             document.getElementById('predict-user-name').textContent = currentUser;
         }
-        
+
         function logoutUser() {
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/set_user', true);
@@ -430,35 +474,30 @@
             };
             xhr.send(JSON.stringify({user: ''}));
         }
-        
-        // ============= 填写预测 =============
+
+        // ============= Predictions =============
         function loadPredictList() {
             if (!currentUser) return;
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/matches', true);
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     matchesData = JSON.parse(xhr.responseText);
-                    // 排序：已结束的比赛在最上面（按时间顺序），未进行的在下面
                     matchesData.sort(function(a, b) {
                         var aDone = a.actual_a !== null && a.actual_b !== null;
                         var bDone = b.actual_a !== null && b.actual_b !== null;
-                        // 已结束的放上面
                         if (aDone && !bDone) return -1;
                         if (!aDone && bDone) return 1;
-                        // 都是已结束或都是未进行的，按时间排序
                         return new Date(a.match_datetime) - new Date(b.match_datetime);
                     });
-                    
-                    // 加载用户预测
+
                     var xhr2 = new XMLHttpRequest();
                     xhr2.open('GET', '/api/user_predictions?user=' + encodeURIComponent(currentUser), true);
                     xhr2.onreadystatechange = function() {
                         if (xhr2.readyState === 4 && xhr2.status === 200) {
                             userPreds = JSON.parse(xhr2.responseText);
                             renderPredictList();
-                            // 滚动到第一个未进行的比赛
                             setTimeout(function() {
                                 var firstUnfinished = document.querySelector('.match-card:not(.finished):not(.locked)');
                                 if (firstUnfinished) {
@@ -472,66 +511,178 @@
             };
             xhr.send();
         }
-        
+
         function renderPredictList() {
             var c = document.getElementById('predict-list');
             c.innerHTML = '';
-            
+
             for (var i = 0; i < matchesData.length; i++) {
                 var m = matchesData[i];
                 var div = document.createElement('div');
                 div.className = 'match-card';
-                
+
                 var locked = isLocked(m.match_datetime);
                 var done = m.actual_a !== null && m.actual_b !== null;
-                
+
                 if (locked && !done) div.classList.add('locked');
                 if (done) div.classList.add('finished');
-                
+
                 var p = userPreds[m.id] || {};
-                var pa = (p.pred_a !== undefined) ? p.pred_a : '';
-                var pb = (p.pred_b !== undefined) ? p.pred_b : '';
-                
-                div.innerHTML = '<div class="match-row">' +
+                var pa = (p.pred_a !== undefined && p.pred_a !== null) ? p.pred_a : '';
+                var pb = (p.pred_b !== undefined && p.pred_b !== null) ? p.pred_b : '';
+                var pea = (p.pred_extra_a !== undefined && p.pred_extra_a !== null) ? p.pred_extra_a : '';
+                var peb = (p.pred_extra_b !== undefined && p.pred_extra_b !== null) ? p.pred_extra_b : '';
+                var ppa = (p.pred_penalty_a !== undefined && p.pred_penalty_a !== null) ? p.pred_penalty_a : '';
+                var ppb = (p.pred_penalty_b !== undefined && p.pred_penalty_b !== null) ? p.pred_penalty_b : '';
+
+                var statusIcon = done ? ' [完]' : (locked ? ' [锁]' : '');
+                var resultText = '';
+                if (done) {
+                    resultText = '<span class="match-result">' + m.actual_a + '-' + m.actual_b;
+                    if (m.extra_a !== null && m.extra_b !== null) {
+                        resultText += ' <span class="result-tag tag-extra">加时' + m.extra_a + '-' + m.extra_b + '</span>';
+                    }
+                    if (m.penalty_a !== null && m.penalty_b !== null) {
+                        resultText += ' <span class="result-tag tag-penalty">点球' + m.penalty_a + '-' + m.penalty_b + '</span>';
+                    }
+                    resultText += '</span>';
+                }
+
+                var html = '<div class="match-row">' +
                     '<div class="match-info">' +
-                        '<div class="match-stage">' + m.stage + ' | ID:' + m.id + ' ' + (done ? '✅' : (locked ? '🔒' : '')) + '</div>' +
+                        '<div class="match-stage">' + m.stage + ' | ID:' + m.id + statusIcon + '</div>' +
                         '<div class="match-teams">' + m.team_a + ' vs ' + m.team_b + '</div>' +
                         '<div class="match-datetime">' + fmtTime(m.match_datetime) + '</div>' +
                     '</div>' +
                     '<div class="match-prediction">' +
-                        '<input class="score-input" id="pa-' + m.id + '" value="' + pa + '" ' + (locked || done ? 'disabled' : '') + ' onchange="autoSave(' + m.id + ')" onblur="autoSave(' + m.id + ')">' +
+                        '<input class="score-input" id="pa-' + m.id + '" value="' + pa + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
                         '<span>vs</span>' +
-                        '<input class="score-input" id="pb-' + m.id + '" value="' + pb + '" ' + (locked || done ? 'disabled' : '') + ' onchange="autoSave(' + m.id + ')" onblur="autoSave(' + m.id + ')">' +
-                        (done ? '<span class="match-result">' + m.actual_a + '-' + m.actual_b + '</span>' : '') +
+                        '<input class="score-input" id="pb-' + m.id + '" value="' + pb + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
+                        resultText +
                     '</div>' +
-                '</div>' +
-                '<div style="margin-top:8px;">' +
+                '</div>';
+
+                // Extra time section (conditionally shown)
+                html += '<div class="extra-time-section" id="extra-section-' + m.id + '" style="display:none;">' +
+                    '<label>加时赛比分</label>' +
+                    '<div class="score-row">' +
+                        '<input class="score-input" id="pea-' + m.id + '" value="' + pea + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
+                        '<span>vs</span>' +
+                        '<input class="score-input" id="peb-' + m.id + '" value="' + peb + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
+                    '</div>' +
+                '</div>';
+
+                // Penalty section (conditionally shown)
+                html += '<div class="penalty-section" id="penalty-section-' + m.id + '" style="display:none;">' +
+                    '<label>点球比分（必须分出胜负）</label>' +
+                    '<div class="score-row">' +
+                        '<input class="score-input" id="ppa-' + m.id + '" value="' + ppa + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
+                        '<span>vs</span>' +
+                        '<input class="score-input" id="ppb-' + m.id + '" value="' + ppb + '" ' + (locked || done ? 'disabled' : '') + ' onchange="onPredChange(' + m.id + ')" onblur="onPredChange(' + m.id + ')">' +
+                    '</div>' +
+                '</div>';
+
+                html += '<div style="margin-top:8px;">' +
                     '<button class="btn btn-small" onclick="showMatchDetail(' + m.id + ')">查看他人预测</button>' +
                 '</div>';
-                
+
+                div.innerHTML = html;
                 c.appendChild(div);
+
+                // Show/hide extra time and penalty based on current values
+                updateExtraPenaltyVisibility(m.id, pa, pb, pea, peb);
             }
         }
-        
+
+        function updateExtraPenaltyVisibility(id, pa, pb, pea, peb) {
+            var extraSection = document.getElementById('extra-section-' + id);
+            var penaltySection = document.getElementById('penalty-section-' + id);
+            if (!extraSection || !penaltySection) return;
+
+            // Show extra time only if regular time is a draw
+            if (pa !== '' && pb !== '' && parseInt(pa) === parseInt(pb)) {
+                extraSection.style.display = 'block';
+                // Show penalty only if extra time is a draw
+                if (pea !== '' && peb !== '' && parseInt(pea) === parseInt(peb)) {
+                    penaltySection.style.display = 'block';
+                } else {
+                    penaltySection.style.display = 'none';
+                }
+            } else {
+                extraSection.style.display = 'none';
+                penaltySection.style.display = 'none';
+            }
+        }
+
+        function onPredChange(id) {
+            var pa = document.getElementById('pa-' + id).value;
+            var pb = document.getElementById('pb-' + id).value;
+
+            // If not a draw, clear extra/penalty
+            if (pa !== '' && pb !== '' && parseInt(pa) !== parseInt(pb)) {
+                var peaEl = document.getElementById('pea-' + id);
+                var pebEl = document.getElementById('peb-' + id);
+                var ppaEl = document.getElementById('ppa-' + id);
+                var ppbEl = document.getElementById('ppb-' + id);
+                if (peaEl) peaEl.value = '';
+                if (pebEl) pebEl.value = '';
+                if (ppaEl) ppaEl.value = '';
+                if (ppbEl) ppbEl.value = '';
+            }
+
+            var pea = document.getElementById('pea-' + id) ? document.getElementById('pea-' + id).value : '';
+            var peb = document.getElementById('peb-' + id) ? document.getElementById('peb-' + id).value : '';
+
+            // If extra time not a draw, clear penalty
+            if (pea !== '' && peb !== '' && parseInt(pea) !== parseInt(peb)) {
+                var ppaEl2 = document.getElementById('ppa-' + id);
+                var ppbEl2 = document.getElementById('ppb-' + id);
+                if (ppaEl2) ppaEl2.value = '';
+                if (ppbEl2) ppbEl2.value = '';
+            }
+
+            updateExtraPenaltyVisibility(id, pa, pb, pea, peb);
+            autoSave(id);
+        }
+
         function autoSave(id) {
             if (!currentUser) return;
-            var a = document.getElementById('pa-' + id).value;
-            var b = document.getElementById('pb-' + id).value;
-            if (!a || !b) return;
-            
+            var pa = document.getElementById('pa-' + id).value;
+            var pb = document.getElementById('pb-' + id).value;
+            if (pa === '' || pb === '') return;
+
+            var peaEl = document.getElementById('pea-' + id);
+            var pebEl = document.getElementById('peb-' + id);
+            var ppaEl = document.getElementById('ppa-' + id);
+            var ppbEl = document.getElementById('ppb-' + id);
+
+            var pea = (peaEl && peaEl.value !== '') ? parseInt(peaEl.value) : null;
+            var peb = (pebEl && pebEl.value !== '') ? parseInt(pebEl.value) : null;
+            var ppa = (ppaEl && ppaEl.value !== '') ? parseInt(ppaEl.value) : null;
+            var ppb = (ppbEl && ppbEl.value !== '') ? parseInt(ppbEl.value) : null;
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/save_prediction', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
-                    if (data.success) showToast('✅ 已保存');
+                    if (data.success) showToast('已保存');
                     else alert(data.message);
                 }
             };
-            xhr.send(JSON.stringify({user: currentUser, match_id: id, pred_a: parseInt(a), pred_b: parseInt(b)}));
+            xhr.send(JSON.stringify({
+                user: currentUser,
+                match_id: id,
+                pred_a: parseInt(pa),
+                pred_b: parseInt(pb),
+                pred_extra_a: pea,
+                pred_extra_b: peb,
+                pred_penalty_a: ppa,
+                pred_penalty_b: ppb
+            }));
         }
-        
+
         function showMatchDetail(id) {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/match_predictions?match_id=' + id, true);
@@ -539,7 +690,7 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
                     if (!data.success) { alert(data.message); return; }
-                    
+
                     var match = null;
                     for (var j = 0; j < matchesData.length; j++) {
                         if (matchesData[j].id == id) {
@@ -548,29 +699,39 @@
                         }
                     }
                     if (!match) return;
-                    
+
                     document.getElementById('match-detail-title').textContent = match.stage + ': ' + match.team_a + ' vs ' + match.team_b;
-                    
+
                     var body = document.getElementById('match-detail-body');
-                    body.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr style="background:#f8f9fa;"><th>用户</th><th>预测</th><th>实际</th></tr></thead><tbody>';
-                    
+                    var html = '<table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr style="background:#f8f9fa;"><th>用户</th><th>常规</th><th>加时</th><th>点球</th><th>实际</th></tr></thead><tbody>';
+
                     for (var k = 0; k < data.predictions.length; k++) {
                         var pred = data.predictions[k];
-                        body.innerHTML += '<tr><td>' + pred.user + '</td><td>' + pred.pred_a + '-' + pred.pred_b + '</td><td>' + (match.actual_a !== null ? match.actual_a + '-' + match.actual_b : '待揭晓') + '</td></tr>';
+                        var predExtra = (pred.pred_extra_a !== null && pred.pred_extra_a !== undefined) ? pred.pred_extra_a + '-' + pred.pred_extra_b : '-';
+                        var predPenalty = (pred.pred_penalty_a !== null && pred.pred_penalty_a !== undefined) ? pred.pred_penalty_a + '-' + pred.pred_penalty_b : '-';
+                        var actualText = match.actual_a !== null ? match.actual_a + '-' + match.actual_b : '待揭晓';
+                        if (match.extra_a !== null && match.extra_b !== null) {
+                            actualText += ' (加时' + match.extra_a + '-' + match.extra_b + ')';
+                        }
+                        if (match.penalty_a !== null && match.penalty_b !== null) {
+                            actualText += ' (点球' + match.penalty_a + '-' + match.penalty_b + ')';
+                        }
+                        html += '<tr><td>' + pred.user + '</td><td>' + pred.pred_a + '-' + pred.pred_b + '</td><td>' + predExtra + '</td><td>' + predPenalty + '</td><td>' + actualText + '</td></tr>';
                     }
-                    
-                    body.innerHTML += '</tbody></table>';
+
+                    html += '</tbody></table>';
+                    body.innerHTML = html;
                     document.getElementById('match-detail-modal').classList.add('active');
                 }
             };
             xhr.send();
         }
-        
+
         function closeMatchDetail() {
             document.getElementById('match-detail-modal').classList.remove('active');
         }
-        
-        // ============= 竞猜晋级（修复重复选择警告） =============
+
+        // ============= Knockout =============
         function loadKnockoutPage() {
             if (!currentUser) {
                 document.getElementById('knockout-msg').style.display = 'block';
@@ -580,8 +741,7 @@
             document.getElementById('knockout-msg').style.display = 'none';
             document.getElementById('knockout-area').style.display = 'block';
             document.getElementById('ko-user-name').textContent = currentUser;
-            
-            // 加载队伍列表
+
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/knockout/teams', true);
             xhr.onreadystatechange = function() {
@@ -589,8 +749,7 @@
                     var data = JSON.parse(xhr.responseText);
                     if (data.success) {
                         allTeams = data.teams;
-                        
-                        // 加载已有预测
+
                         var xhr2 = new XMLHttpRequest();
                         xhr2.open('GET', '/api/knockout/load?user=' + encodeURIComponent(currentUser), true);
                         xhr2.onreadystatechange = function() {
@@ -615,7 +774,7 @@
             };
             xhr.send();
         }
-        
+
         function renderKoSelects(containerId, count, roundName, existing) {
             var c = document.getElementById(containerId);
             c.innerHTML = '';
@@ -639,17 +798,16 @@
                 }
                 c.appendChild(sel);
             }
-            // 初始检查一次
             checkDuplicate(roundName);
         }
-        
+
         function checkDuplicate(roundName) {
             var counts = {'32强': 32, '16强': 16, '8强': 8, '4强': 4, '2强': 2, '冠军': 1};
             var count = counts[roundName];
             var selected = [];
             var hasDuplicate = false;
             var duplicateTeam = '';
-            
+
             for (var i = 0; i < count; i++) {
                 var sel = document.getElementById('ko-sel-' + roundName + '-' + i);
                 if (sel && sel.value) {
@@ -663,43 +821,40 @@
                     selected.push(sel.value);
                 }
             }
-            
+
             var warningEl = document.getElementById('ko-' + roundName + '-warning');
             if (warningEl) {
                 if (hasDuplicate) {
                     warningEl.style.display = 'block';
-                    warningEl.textContent = '⚠️ 警告：重复选择了 "' + duplicateTeam + '"！请取消重复选择。';
+                    warningEl.textContent = '警告：重复选择了 "' + duplicateTeam + '"！请取消重复选择。';
                 } else {
                     warningEl.style.display = 'none';
                 }
             }
         }
-        
+
         function saveKnockout() {
             if (!currentUser) return;
             var preds = {};
             var rounds = ['32强', '16强', '8强', '4强', '2强', '冠军'];
             var counts = {'32强': 32, '16强': 16, '8强': 8, '4强': 4, '2强': 2, '冠军': 1};
-            
-            // 先检查所有轮次是否有重复
+
             for (var r = 0; r < rounds.length; r++) {
                 var rname = rounds[r];
                 var count = counts[rname];
                 var selected = [];
-                var hasDuplicate = false;
                 for (var i = 0; i < count; i++) {
                     var sel = document.getElementById('ko-sel-' + rname + '-' + i);
                     if (sel && sel.value) {
                         if (selected.indexOf(sel.value) !== -1) {
-                            hasDuplicate = true;
-                            alert('⚠️ ' + rname + '中重复选择了 "' + sel.value + '"！请修改后再保存。');
+                            alert(rname + '中重复选择了 "' + sel.value + '"！请修改后再保存。');
                             return;
                         }
                         selected.push(sel.value);
                     }
                 }
             }
-            
+
             for (var r = 0; r < rounds.length; r++) {
                 var rname = rounds[r];
                 var count = counts[rname];
@@ -710,24 +865,24 @@
                 }
                 preds[rname] = arr;
             }
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/knockout/save', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
-                    if (data.success) showToast('✅ 晋级竞猜已保存！');
+                    if (data.success) showToast('晋级竞猜已保存！');
                     else alert(data.message);
                 }
             };
             xhr.send(JSON.stringify({user: currentUser, predictions: preds}));
         }
-        
-        // ============= 管理员 =============
+
+        // ============= Admin =============
         function adminLogin() {
             var pwd = document.getElementById('admin-pwd').value;
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/admin/login', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -739,12 +894,12 @@
                         document.getElementById('admin-login-area').style.display = 'none';
                         document.getElementById('admin-panel').style.display = 'block';
                         loadAdminData();
-                    } else alert('❌ 密码错误！');
+                    } else alert('密码错误！');
                 }
             };
             xhr.send(JSON.stringify({password: pwd}));
         }
-        
+
         function adminLogout() {
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/admin/logout', true);
@@ -757,11 +912,10 @@
             };
             xhr.send();
         }
-        
+
         function loadAdminData() {
             loadAdminMatchList();
             loadAdminKoActual();
-            // 加载队伍列表
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/knockout/teams', true);
             xhr.onreadystatechange = function() {
@@ -775,7 +929,7 @@
             };
             xhr.send();
         }
-        
+
         function renderAdminKoSelects() {
             var round = document.getElementById('admin-ko-round').value;
             var counts = {'32强': 32, '16强': 16, '8强': 8, '4强': 4, '2强': 2, '冠军': 1};
@@ -799,7 +953,7 @@
                 c.appendChild(sel);
             }
         }
-        
+
         function saveAdminKoActual() {
             var round = document.getElementById('admin-ko-round').value;
             var counts = {'32强': 32, '16强': 16, '8强': 8, '4强': 4, '2强': 2, '冠军': 1};
@@ -809,20 +963,20 @@
                 var v = document.getElementById('admin-ko-sel-' + i);
                 if (v && v.value) teams.push(v.value);
             }
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/admin/knockout_actual_save', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
-                    if (data.success) { showToast('✅ 实际晋级队伍已保存！'); loadAdminKoActual(); }
+                    if (data.success) { showToast('实际晋级队伍已保存！'); loadAdminKoActual(); }
                     else alert(data.message);
                 }
             };
             xhr.send(JSON.stringify({round: round, teams: teams}));
         }
-        
+
         function loadAdminKoActual() {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/knockout/actual_load', true);
@@ -848,14 +1002,14 @@
             };
             xhr.send();
         }
-        
+
         function addMatch() {
             var stage = document.getElementById('m-stage').value;
             var dt = document.getElementById('m-datetime').value;
             var a = document.getElementById('m-team-a').value.trim();
             var b = document.getElementById('m-team-b').value.trim();
             if (!stage || !dt || !a || !b) { alert('请填写完整！'); return; }
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/admin/add_match', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -863,7 +1017,7 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
                     if (data.success) {
-                        showToast('✅ 已添加！');
+                        showToast('已添加！');
                         document.getElementById('m-datetime').value = '';
                         document.getElementById('m-team-a').value = '';
                         document.getElementById('m-team-b').value = '';
@@ -873,13 +1027,18 @@
             };
             xhr.send(JSON.stringify({stage: stage, match_datetime: dt.replace('T', ' ') + ':00', team_a: a, team_b: b}));
         }
-        
+
         function saveResult() {
             var id = document.getElementById('r-match-id').value;
             var a = document.getElementById('r-actual-a').value;
             var b = document.getElementById('r-actual-b').value;
             if (!id || a === '' || b === '') { alert('请填写完整！'); return; }
-            
+
+            var extraA = document.getElementById('r-extra-a').value;
+            var extraB = document.getElementById('r-extra-b').value;
+            var penaltyA = document.getElementById('r-penalty-a').value;
+            var penaltyB = document.getElementById('r-penalty-b').value;
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/admin/save_result', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -887,17 +1046,29 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
                     if (data.success) {
-                        showToast('✅ 实际比分已保存！');
+                        showToast('实际比分已保存！');
                         document.getElementById('r-match-id').value = '';
                         document.getElementById('r-actual-a').value = '';
                         document.getElementById('r-actual-b').value = '';
+                        document.getElementById('r-extra-a').value = '';
+                        document.getElementById('r-extra-b').value = '';
+                        document.getElementById('r-penalty-a').value = '';
+                        document.getElementById('r-penalty-b').value = '';
                         loadAdminMatchList();
                     } else alert(data.message);
                 }
             };
-            xhr.send(JSON.stringify({match_id: parseInt(id), actual_a: parseInt(a), actual_b: parseInt(b)}));
+            xhr.send(JSON.stringify({
+                match_id: parseInt(id),
+                actual_a: parseInt(a),
+                actual_b: parseInt(b),
+                extra_a: extraA,
+                extra_b: extraB,
+                penalty_a: penaltyA,
+                penalty_b: penaltyB
+            }));
         }
-        
+
         function loadAdminMatchList() {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/matches', true);
@@ -911,10 +1082,22 @@
                         var div = document.createElement('div');
                         div.className = 'match-card';
                         var deleteResultBtn = (m.actual_a !== null) ? '<button class="btn btn-small btn-danger" onclick="deleteResult(' + m.id + ')">删比分</button>' : '';
+
+                        var actualText = '未填';
+                        if (m.actual_a !== null) {
+                            actualText = m.actual_a + '-' + m.actual_b;
+                            if (m.extra_a !== null && m.extra_b !== null) {
+                                actualText += ' (加时' + m.extra_a + '-' + m.extra_b + ')';
+                            }
+                            if (m.penalty_a !== null && m.penalty_b !== null) {
+                                actualText += ' (点球' + m.penalty_a + '-' + m.penalty_b + ')';
+                            }
+                        }
+
                         div.innerHTML = '<div class="match-stage">' + m.stage + ' | ID:' + m.id + '</div>' +
                             '<div class="match-teams">' + m.team_a + ' vs ' + m.team_b + '</div>' +
                             '<div style="font-size:12px;color:#666;margin:5px 0;">时间：' + fmtTime(m.match_datetime) + '</div>' +
-                            '<div style="font-size:12px;color:#666;margin-bottom:8px;">实际：' + (m.actual_a !== null ? m.actual_a + ' - ' + m.actual_b : '未填') + '</div>' +
+                            '<div style="font-size:12px;color:#666;margin-bottom:8px;">实际：' + actualText + '</div>' +
                             '<div style="display:flex;gap:8px;">' +
                                 deleteResultBtn +
                                 '<button class="btn btn-small btn-danger" onclick="deleteMatch(' + m.id + ')">删比赛</button>' +
@@ -925,40 +1108,40 @@
             };
             xhr.send();
         }
-        
+
         function deleteResult(id) {
             if (!confirm('确定删除此场比分？')) return;
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/admin/delete_result', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
-                    if (data.success) { showToast('✅ 已删除比分！'); loadAdminMatchList(); }
+                    if (data.success) { showToast('已删除比分！'); loadAdminMatchList(); }
                     else alert(data.message);
                 }
             };
             xhr.send(JSON.stringify({match_id: id}));
         }
-        
+
         function deleteMatch(id) {
             if (!confirm('确定删除此场比赛？（预测数据也会删除）')) return;
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/admin/delete_match', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
-                    if (data.success) { showToast('✅ 已删除！'); loadAdminMatchList(); }
+                    if (data.success) { showToast('已删除！'); loadAdminMatchList(); }
                     else alert(data.message);
                 }
             };
             xhr.send(JSON.stringify({id: id}));
         }
-        
-        // ============= 排名（添加晋级得分列） =============
+
+        // ============= Ranking =============
         function loadRanking() {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/ranking', true);
@@ -981,19 +1164,21 @@
                             '<td><strong>' + r.score + '</strong></td>' +
                             '<td>' + r.exact + '</td>' +
                             '<td>' + r.correct + '</td>' +
+                            '<td>' + (r.extra_score || 0) + '</td>' +
+                            '<td>' + (r.penalty_score || 0) + '</td>' +
                             '<td>' + (r.ko_score || 0) + '</td>';
-                        
+
                         (function(user) {
                             tr.onclick = function() { showUserDetail(user); };
                         })(r.user);
-                        
+
                         tbody.appendChild(tr);
                     }
                 }
             };
             xhr.send();
         }
-        
+
         function showUserDetail(user) {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/user_detail?user=' + encodeURIComponent(user), true);
@@ -1001,57 +1186,85 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
                     if (!data.success) { alert(data.message); return; }
-                    
+
                     document.getElementById('user-detail-name').textContent = data.user;
                     document.getElementById('user-detail-score').textContent = data.total_score;
                     document.getElementById('user-detail-exact').textContent = data.exact_count;
                     document.getElementById('user-detail-correct').textContent = data.correct_count;
-                    
-                    // 显示比分预测详情
+                    document.getElementById('user-detail-extra').textContent = data.extra_score || 0;
+                    document.getElementById('user-detail-penalty').textContent = data.penalty_score || 0;
+
                     var tbody = document.getElementById('user-detail-body');
                     tbody.innerHTML = '';
                     for (var i = 0; i < data.predictions.length; i++) {
                         var p = data.predictions[i];
                         var tr = document.createElement('tr');
+
+                        var predText = p.pred_a + '-' + p.pred_b;
+                        if (p.pred_extra_a !== null && p.pred_extra_a !== undefined) {
+                            predText += ' (加时' + p.pred_extra_a + '-' + p.pred_extra_b + ')';
+                        }
+                        if (p.pred_penalty_a !== null && p.pred_penalty_a !== undefined) {
+                            predText += ' (点球' + p.pred_penalty_a + '-' + p.pred_penalty_b + ')';
+                        }
+
+                        var actualText = '待揭晓';
+                        if (p.actual_a !== null) {
+                            actualText = p.actual_a + '-' + p.actual_b;
+                            if (p.extra_a !== null && p.extra_a !== undefined) {
+                                actualText += ' (加时' + p.extra_a + '-' + p.extra_b + ')';
+                            }
+                            if (p.penalty_a !== null && p.penalty_a !== undefined) {
+                                actualText += ' (点球' + p.penalty_a + '-' + p.penalty_b + ')';
+                            }
+                        }
+
                         var scoreText = '';
-                        if (p.score === 4) scoreText = '<span style="color:green;">准确+4</span>';
-                        else if (p.score === 1) scoreText = '<span style="color:blue;">胜负+1</span>';
-                        else scoreText = '待揭晓';
+                        if (p.actual_a !== null) {
+                            if (p.score > 0) {
+                                scoreText = '<span style="color:green;">+' + p.score + '</span>';
+                            } else {
+                                scoreText = '<span style="color:red;">0</span>';
+                            }
+                        } else {
+                            scoreText = '待揭晓';
+                        }
+
                         tr.innerHTML = '<td>' + p.stage + '<br><small>' + p.team_a + ' vs ' + p.team_b + '</small></td>' +
-                            '<td>' + p.pred_a + '-' + p.pred_b + '</td>' +
-                            '<td>' + (p.actual_a !== null ? p.actual_a + '-' + p.actual_b : '待揭晓') + '</td>' +
+                            '<td>' + predText + '</td>' +
+                            '<td>' + actualText + '</td>' +
                             '<td>' + scoreText + '</td>';
                         tbody.appendChild(tr);
                     }
-                    
-                    // 显示晋级预测详情
+
                     var koDiv = document.getElementById('user-knockout-detail');
                     if (data.knockout_predictions && data.knockout_predictions.length > 0) {
-                        koDiv.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr style="background:#f8f9fa;"><th>轮次</th><th>预测队伍</th><th>实际队伍</th><th>得分</th></tr></thead><tbody>';
+                        var koHtml = '<table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr style="background:#f8f9fa;"><th>轮次</th><th>预测队伍</th><th>实际队伍</th><th>得分</th></tr></thead><tbody>';
                         for (var j = 0; j < data.knockout_predictions.length; j++) {
                             var kp = data.knockout_predictions[j];
-                            koDiv.innerHTML += '<tr><td>' + kp.round + '</td><td>' + kp.team + '</td><td>' + (kp.actual_team ? kp.actual_team : '待揭晓') + '</td><td>' + (kp.score > 0 ? '<span style="color:green;">+ ' + kp.score + '</span>' : (kp.actual_team ? '<span style="color:red;">未中</span>' : '待揭晓')) + '</td></tr>';
+                            koHtml += '<tr><td>' + kp.round + '</td><td>' + kp.team + '</td><td>' + (kp.actual_team ? kp.actual_team : '待揭晓') + '</td><td>' + (kp.score > 0 ? '<span style="color:green;">+ ' + kp.score + '</span>' : (kp.actual_team ? '<span style="color:red;">未中</span>' : '待揭晓')) + '</td></tr>';
                         }
-                        koDiv.innerHTML += '</tbody></table>';
+                        koHtml += '</tbody></table>';
+                        koDiv.innerHTML = koHtml;
                     } else {
                         koDiv.innerHTML = '<p style="color:#999;">暂无晋级预测</p>';
                     }
-                    
+
                     document.getElementById('user-detail-modal').classList.add('active');
                 }
             };
             xhr.send();
         }
-        
+
         function closeUserDetail() {
             document.getElementById('user-detail-modal').classList.remove('active');
         }
-        
-        // ============= 工具函数 =============
+
+        // ============= Utility =============
         function isLocked(dt) {
             return (new Date(dt) - new Date()) < 300000;
         }
-        
+
         function fmtTime(dt) {
             var d = new Date(dt);
             var month = String(d.getMonth() + 1).padStart(2, '0');
@@ -1060,29 +1273,28 @@
             var minute = String(d.getMinutes()).padStart(2, '0');
             return month + '-' + day + ' ' + hour + ':' + minute;
         }
-        
+
         function showToast(msg) {
             var t = document.getElementById('save-toast');
             t.textContent = msg;
             t.style.display = 'block';
             setTimeout(function() { t.style.display = 'none'; }, 2000);
         }
-        
+
         function startTimers() {
             if (lockTimer) clearInterval(lockTimer);
             if (refreshTimer) clearInterval(refreshTimer);
             lockTimer = setInterval(function() { if (currentUser) renderPredictList(); }, 60000);
             refreshTimer = setInterval(function() { if (currentUser) loadPredictList(); }, 1800000);
         }
-        
+
         function stopTimers() {
             if (lockTimer) clearInterval(lockTimer);
             if (refreshTimer) clearInterval(refreshTimer);
         }
-        
-        // ============= 页面初始化 =============
+
+        // ============= Page init =============
         window.onload = function() {
-            // 恢复session
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/get_user', true);
             xhr.onreadystatechange = function() {
@@ -1099,10 +1311,9 @@
                 }
             };
             xhr.send();
-            
+
             var xhr2 = new XMLHttpRequest();
             xhr2.open('GET', '/api/admin/check', true);
-            // 确保发送Session cookie
             xhr2.withCredentials = true;
             xhr2.onreadystatechange = function() {
                 if (xhr2.readyState === 4 && xhr2.status === 200) {
@@ -1112,53 +1323,52 @@
                         document.getElementById('admin-login-area').style.display = 'none';
                         document.getElementById('admin-panel').style.display = 'block';
                         loadAdminData();
-                        loadUserList();  // 加载参与者列表
+                        loadUserList();
                     }
                 }
             };
             xhr2.send();
         }
-        
-        // ============= 删除参与者功能 =============
+
+        // ============= Delete user =============
         function loadUserList() {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/admin/get_users', true);
-            // 确保发送Session cookie
             xhr.withCredentials = true;
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         var data = JSON.parse(xhr.responseText);
-                        if (!data.success) { 
+                        if (!data.success) {
                             document.getElementById('user-list').innerHTML = '<p style="color:red;">加载失败：' + data.message + '</p>';
-                            return; 
+                            return;
                         }
-                        
+
                         var c = document.getElementById('user-list');
                         c.innerHTML = '';
-                        
+
                         if (data.users.length === 0) {
                             c.innerHTML = '<p style="color:#999;">暂无参与者</p>';
                             return;
                         }
-                        
+
                         for (var i = 0; i < data.users.length; i++) {
                             var user = data.users[i];
                             var div = document.createElement('div');
                             div.className = 'match-card';
                             div.style.marginBottom = '8px';
                             div.style.padding = '10px';
-                            
+
                             div.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
                                 '<div>' +
                                     '<strong>' + user.user_name + '</strong>' +
                                     '<span style="font-size:12px;color:#999;margin-left:10px;">' +
-                                        '比分预测:' + user.pred_count + '场 | 晋级预测:' + user.knockout_count + '项' +
+                                        '比分:' + user.pred_count + '场 | 晋级:' + user.knockout_count + '项' +
                                     '</span>' +
                                 '</div>' +
                                 '<button class="btn btn-small btn-danger" onclick="deleteUserJS(\'' + user.user_name + '\')">删除</button>' +
                             '</div>';
-                            
+
                             c.appendChild(div);
                         }
                     } else {
@@ -1168,12 +1378,12 @@
             };
             xhr.send();
         }
-        
+
         function deleteUserJS(userName) {
             if (!confirm('确定删除参与者 "' + userName + '" 及其所有预测记录？\n\n此操作不可恢复！')) {
                 return;
             }
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/admin/delete_user', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -1182,23 +1392,23 @@
                     if (xhr.status === 200) {
                         var data = JSON.parse(xhr.responseText);
                         if (data.success) {
-                            showToast('✅ ' + data.message);
-                            loadUserList();  // 重新加载列表
+                            showToast(data.message);
+                            loadUserList();
                         } else {
-                            alert('❌ ' + data.message);
+                            alert(data.message);
                         }
                     } else {
-                        alert('❌ 请求失败，状态码：' + xhr.status);
+                        alert('请求失败，状态码：' + xhr.status);
                     }
                 }
             };
-            xhr.send(JSON.stringify({user: userName}));
+            xhr.send(JSON.stringify({user_name: userName}));
         }
-        
-        // ============= 数据备份/恢复 =============
+
+        // ============= Data backup/restore =============
         function exportData() {
             if (!isAdmin) { alert('需要管理员权限！'); return; }
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/api/export', true);
             xhr.onreadystatechange = function() {
@@ -1215,7 +1425,7 @@
                         a.click();
                         document.body.removeChild(a);
                         URL.revokeObjectURL(url);
-                        showToast('✅ 数据已导出！');
+                        showToast('数据已导出！');
                     } else {
                         alert('导出失败：' + response.message);
                     }
@@ -1223,22 +1433,22 @@
             };
             xhr.send();
         }
-        
+
         function importData() {
             if (!isAdmin) { alert('需要管理员权限！'); return; }
-            
+
             var fileInput = document.getElementById('import-file');
             if (!fileInput.files.length) {
                 alert('请先选择备份文件！');
                 return;
             }
-            
+
             var file = fileInput.files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     var backupData = JSON.parse(e.target.result);
-                    
+
                     var xhr = new XMLHttpRequest();
                     xhr.open('POST', '/api/import', true);
                     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -1246,7 +1456,7 @@
                         if (xhr.readyState === 4 && xhr.status === 200) {
                             var response = JSON.parse(xhr.responseText);
                             if (response.success) {
-                                showToast('✅ 数据已恢复！');
+                                showToast('数据已恢复！');
                                 if (currentUser) loadPredictList();
                                 loadRanking();
                             } else {
