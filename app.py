@@ -163,7 +163,14 @@ def _insert_matches(c):
     for m in matches:
         c.execute('INSERT INTO matches (stage, match_datetime, team_a, team_b, actual_a, actual_b) VALUES (' + ','.join([PH]*4) + ', NULL, NULL)', m)
 
-init_db()
+_db_initialized = False
+
+@app.before_request
+def ensure_db():
+    global _db_initialized
+    if not _db_initialized:
+        init_db()
+        _db_initialized = True
 
 def is_locked(match_datetime_str):
     mt = datetime.strptime(match_datetime_str, '%Y-%m-%d %H:%M')
