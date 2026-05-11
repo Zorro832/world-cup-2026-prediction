@@ -527,12 +527,38 @@
 
         function renderPredictList() {
             var c = document.getElementById('predict-list');
+
+            // If cards already exist, only update lock/done status (don't rebuild DOM)
+            if (c.children.length > 0 && matchesData.length > 0) {
+                var needsFullRender = false;
+                for (var i = 0; i < matchesData.length; i++) {
+                    var card = document.getElementById('match-card-' + matchesData[i].id);
+                    if (!card) { needsFullRender = true; break; }
+                }
+                if (!needsFullRender) {
+                    // Just update lock/done classes
+                    for (var j = 0; j < matchesData.length; j++) {
+                        var m = matchesData[j];
+                        var card2 = document.getElementById('match-card-' + m.id);
+                        if (!card2) continue;
+                        var locked = isLocked(m.match_datetime);
+                        var done = m.actual_a !== null && m.actual_b !== null;
+                        card2.classList.remove('locked', 'finished');
+                        if (locked && !done) card2.classList.add('locked');
+                        if (done) card2.classList.add('finished');
+                    }
+                    return;
+                }
+            }
+
+            // Full render
             c.innerHTML = '';
 
             for (var i = 0; i < matchesData.length; i++) {
                 var m = matchesData[i];
                 var div = document.createElement('div');
                 div.className = 'match-card';
+                div.id = 'match-card-' + m.id;
 
                 var locked = isLocked(m.match_datetime);
                 var done = m.actual_a !== null && m.actual_b !== null;
@@ -692,6 +718,16 @@
             var peb = (pebEl && pebEl.value !== '') ? parseInt(pebEl.value) : null;
             var ppa = (ppaEl && ppaEl.value !== '') ? parseInt(ppaEl.value) : null;
             var ppb = (ppbEl && ppbEl.value !== '') ? parseInt(ppbEl.value) : null;
+
+            // Update userPreds locally immediately (so re-render won't lose data)
+            userPreds[id] = {
+                pred_a: parseInt(pa),
+                pred_b: parseInt(pb),
+                pred_extra_a: pea,
+                pred_extra_b: peb,
+                pred_penalty_a: ppa,
+                pred_penalty_b: ppb
+            };
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/api/save_prediction', true);
@@ -1379,8 +1415,19 @@
         function startTimers() {
             if (lockTimer) clearInterval(lockTimer);
             if (refreshTimer) clearInterval(refreshTimer);
-            lockTimer = setInterval(function() { if (currentUser) renderPredictList(); }, 60000);
-            refreshTimer = setInterval(function() { if (currentUser) loadPredictList(); }, 1800000);
+            lockTimer = setInterval(function() {
+                if (currentUser) {
+                    // Only re-render if no pending saves (avoid resetting inputs mid-edit)
+                    var hasPendingSaves = Object.keys(saveTimers).some(function(k) { return saveTimers[k]; });
+                    if (!hasPendingSaves) renderPredictList();
+                }
+            }, 60000);
+            refreshTimer = setInterval(function() {
+                if (currentUser) {
+                    var hasPendingSaves = Object.keys(saveTimers).some(function(k) { return saveTimers[k]; });
+                    if (!hasPendingSaves) loadPredictList();
+                }
+            }, 1800000);
         }
 
         function stopTimers() {
