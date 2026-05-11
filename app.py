@@ -457,14 +457,15 @@ def save_result():
         penalty_b = int(penalty_b)
 
     # Check match stage - extra/penalty only for knockout
-    KNOCKOUT_STAGES = ['32强', '16强', '8强', '半决赛', '季军赛', '决赛']
+    KNOCKOUT_STAGES = ['32强', '16强', '8强', '四分之一决赛', '半决赛', '季军赛', '决赛',
+                        '32强淘汰赛', '16强赛', '1/8决赛', '1/4决赛']
     conn = get_db()
     match_stage_row = conn.execute(
         'SELECT stage FROM matches WHERE id=%s' if DATABASE_URL else
         'SELECT stage FROM matches WHERE id=?',
         (match_id,)
     ).fetchone()
-    is_knockout = match_stage_row and match_stage_row[0] in KNOCKOUT_STAGES
+    is_knockout = '强' in match_stage_row[0] or '决赛' in match_stage_row[0] or '季军' in match_stage_row[0]
 
     # If extra time is filled, regular time must be a draw AND knockout stage
     if extra_a is not None and extra_b is not None:
@@ -571,7 +572,6 @@ def save_prediction():
         return jsonify(success=False, message='请填写完整')
 
     # Check if this is a knockout match (extra/penalty only allowed in knockout)
-    KNOCKOUT_STAGES = ['32强', '16强', '8强', '半决赛', '季军赛', '决赛']
     conn = get_db()
     match_row = conn.execute(
         'SELECT stage, match_datetime FROM matches WHERE id=%s' if DATABASE_URL else
@@ -582,7 +582,8 @@ def save_prediction():
     if not match_row:
         return jsonify(success=False, message='比赛不存在')
     match_stage = match_row[0]
-    is_knockout = match_stage in KNOCKOUT_STAGES
+    # Knockout stages contain 强/决赛/季军, group stages contain 小组赛
+    is_knockout = '强' in match_stage or '决赛' in match_stage or '季军' in match_stage
 
     # Convert empty/undefined to None
     if pred_extra_a == '' or pred_extra_a is None:
