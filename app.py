@@ -606,6 +606,20 @@ def fix_beijing_time():
     return jsonify(success=True, updated=updated)
 
 
+@app.route('/api/admin/reinit_matches', methods=['POST'])
+def reinit_matches():
+    """Delete all matches and re-initialize with correct schedule."""
+    if not session.get('is_admin'):
+        return jsonify(success=False, message='需要管理员权限')
+    conn = get_db()
+    conn.execute('DELETE FROM matches')
+    conn.commit()
+    conn.close()
+    # Re-initialize
+    init_db()
+    return jsonify(success=True, message='已重新初始化比赛数据')
+
+
 @app.route('/api/save_prediction', methods=['POST'])
 def save_prediction():
     d = request.json
