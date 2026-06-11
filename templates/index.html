@@ -1397,12 +1397,13 @@
         }
 
         function fmtTime(dt) {
-            var d = new Date(dt);
+            // dt from DB is Beijing time (UTC+8)
+            var d = new Date(dt.replace(' ', 'T') + ':00+08:00');
             var month = String(d.getMonth() + 1).padStart(2, '0');
             var day = String(d.getDate()).padStart(2, '0');
             var hour = String(d.getHours()).padStart(2, '0');
             var minute = String(d.getMinutes()).padStart(2, '0');
-            return month + '-' + day + ' ' + hour + ':' + minute;
+            return month + '-' + day + ' ' + hour + ':' + minute + ' (北京)';
         }
 
         function showToast(msg) {

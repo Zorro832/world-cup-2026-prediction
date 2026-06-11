@@ -225,7 +225,7 @@ def init_db():
     c.execute("SELECT COUNT(*) FROM matches")
     if c.fetchone()[0] == 0:
         matches = []
-        base = datetime(2026, 6, 11, 20, 0)
+        base = datetime(2026, 6, 12, 10, 0)  # 北京时间
 
         all_teams = [
             '墨西哥', '波兰', '阿根廷', '沙特阿拉伯',
@@ -259,9 +259,9 @@ def init_db():
             t = t.replace(hour=20, minute=0)
 
         ko_schedule = [
-            ('32强', 16, datetime(2026, 6, 28, 20, 0)),
-            ('16强', 8, datetime(2026, 7, 4, 20, 0)),
-            ('8强', 4, datetime(2026, 7, 8, 20, 0)),
+            ('32强', 16, datetime(2026, 6, 29, 10, 0)),  # 北京时间
+            ('16强', 8, datetime(2026, 7, 5, 10, 0)),
+            ('8强', 4, datetime(2026, 7, 9, 10, 0)),
         ]
 
         for stage, count, start_time in ko_schedule:
@@ -278,10 +278,10 @@ def init_db():
                     t2 += timedelta(days=1)
                     t2 = t2.replace(hour=20, minute=0)
 
-        matches.append(('半决赛', '2026-07-12 20:00', '半决赛-1', '半决赛-2'))
-        matches.append(('半决赛', '2026-07-13 20:00', '半决赛-3', '半决赛-4'))
-        matches.append(('季军赛', '2026-07-17 20:00', '季军赛-1', '季军赛-2'))
-        matches.append(('决赛', '2026-07-19 20:00', '决赛-1', '决赛-2'))
+        matches.append(('半决赛', '2026-07-13 09:00', '半决赛-1', '半决赛-2'))
+        matches.append(('半决赛', '2026-07-13 13:00', '半决赛-3', '半决赛-4'))
+        matches.append(('季军赛', '2026-07-18 09:00', '季军赛-1', '季军赛-2'))
+        matches.append(('决赛', '2026-07-20 09:00', '决赛-1', '决赛-2'))
 
         for m in matches:
             c.execute('''
