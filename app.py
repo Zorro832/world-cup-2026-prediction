@@ -225,7 +225,7 @@ def init_db():
     c.execute("SELECT COUNT(*) FROM matches")
     if c.fetchone()[0] == 0:
         matches = []
-        base = datetime(2026, 6, 12, 10, 0)  # 北京时间
+        base = datetime(2026, 6, 12, 3, 0)  # 北京时间 06-12 03:00
 
         all_teams = [
             '墨西哥', '波兰', '阿根廷', '沙特阿拉伯',
@@ -259,9 +259,9 @@ def init_db():
             t = t.replace(hour=20, minute=0)
 
         ko_schedule = [
-            ('32强', 16, datetime(2026, 6, 29, 10, 0)),  # 北京时间
-            ('16强', 8, datetime(2026, 7, 5, 10, 0)),
-            ('8强', 4, datetime(2026, 7, 9, 10, 0)),
+            ('32强', 16, datetime(2026, 6, 29, 3, 0)),  # 北京时间06-29 03:00
+            ('16强', 8, datetime(2026, 7, 5, 3, 0)),
+            ('8强', 4, datetime(2026, 7, 9, 3, 0)),
         ]
 
         for stage, count, start_time in ko_schedule:
