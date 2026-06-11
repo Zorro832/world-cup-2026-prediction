@@ -611,6 +611,10 @@ def reinit_matches():
     """Delete all matches and re-initialize with correct schedule."""
     if not session.get('is_admin'):
         return jsonify(success=False, message='需要管理员权限')
+    # Reset init flag so init_db will re-run
+    global _db_initialized
+    _db_initialized = False
+    # Clear matches table
     conn = get_db()
     conn.execute('DELETE FROM matches')
     conn.commit()
