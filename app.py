@@ -556,10 +556,32 @@ def update_match_teams():
     return jsonify(success=True)
 
 
+@app.route('/api/admin/update_match_time', methods=['POST'])
+def update_match_time():
+    if not session.get('is_admin'):
+        return jsonify(success=False, message='需要管理员权限')
+    d = request.json
+    match_id = d.get('match_id')
+    match_datetime = d.get('match_datetime', '').strip()
+    if not match_id or not match_datetime:
+        return jsonify(success=False, message='请填写完整')
+    conn = get_db()
+    conn.execute(
+        'UPDATE matches SET match_datetime=%s WHERE id=%s' if DATABASE_URL else
+        'UPDATE matches SET match_datetime=? WHERE id=?',
+        (match_datetime, match_id)
+    )
+    conn.commit()
+    conn.close()
+    return jsonify(success=True)
+
+
 @ app.route('/api/admin/fix_beijing_time', methods=['POST'])
 def fix_beijing_time():
     if not session.get('is_admin'):
         return jsonify(success=False, message='需要管理员权限')
+    d = request.json or {}
+    hours = d.get('hours', 14)
     conn = get_db()
     c = conn.cursor()
     rows = c.execute('SELECT id, match_datetime FROM matches').fetchall()
@@ -569,9 +591,7 @@ def fix_beijing_time():
         try:
             from datetime import datetime, timedelta
             dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M')
-            # Only fix if hour is 20, 23, 2, 5, 8 (Mexico schedule)
-            # Add 14 hours to convert Mexico (UTC-6) to Beijing (UTC+8)
-            dt_new = dt + timedelta(hours=14)
+            dt_new = dt + timedelta(hours=hours)
             new_str = dt_new.strftime('%Y-%m-%d %H:%M')
             c.execute(
                 'UPDATE matches SET match_datetime=%s WHERE id=%s' if DATABASE_URL else
