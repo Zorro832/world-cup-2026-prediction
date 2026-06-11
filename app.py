@@ -606,22 +606,94 @@ def fix_beijing_time():
     return jsonify(success=True, updated=updated)
 
 
-@app.route('/api/admin/reinit_matches', methods=['POST'])
-def reinit_matches():
-    """Delete all matches and re-initialize with correct schedule."""
+@app.route('/api/admin/reload_schedule', methods=['POST'])
+def reload_schedule():
+    """Reload correct schedule from init_db logic WITHOUT deleting data.
+    Updates existing matches in order (by ID) with correct time/teams.
+    """
     if not session.get('is_admin'):
         return jsonify(success=False, message='需要管理员权限')
-    # Reset init flag so init_db will re-run
-    global _db_initialized
-    _db_initialized = False
-    # Clear matches table
+    
+    # Generate correct schedule (same as init_db)
+    from datetime import datetime, timedelta
+    matches = []
+    base = datetime(2026, 6, 12, 3, 0)
+    
+    all_teams = [
+        '墨西哥', '南非', '韩国', '捷克',
+        '加拿大', '波黑', '卡塔尔', '瑞士',
+        '巴西', '摩洛哥', '海地', '苏格兰',
+        '美国', '巴拉圭', '澳大利亚', '土耳其',
+        '德国', '库拉索', '科特迪瓦', '厄瓜多尔',
+        '荷兰', '日本', '瑞典', '突尼斯',
+        '比利时', '埃及', '伊朗', '新西兰',
+        '西班牙', '佛得角', '沙特阿拉伯', '乌拉圭',
+        '法国', '塞内加尔', '伊拉克', '挪威',
+        '阿根廷', '阿尔及利亚', '奥地利', '约旦',
+        '葡萄牙', '刚果民主共和国', '乌兹别克斯坦', '哥伦比亚',
+        '英格兰', '克罗地亚', '加纳', '巴拿马',
+    ]
+    
+    t = base
+    for i in range(12):
+        group = chr(ord('A') + i)
+        teams = all_teams[i*4:(i+1)*4]
+        pairings = [(0,1),(2,3),(0,2),(1,3),(0,3),(1,2)]
+        for a, b in pairings:
+            matches.append((
+                f'小组赛{group}组',
+                t.strftime('%Y-%m-%d %H:%M'),
+                teams[a],
+                teams[b]
+            ))
+            t += timedelta(hours=3)
+        t += timedelta(days=1)
+        t = t.replace(hour=3, minute=0)
+    
+    ko_schedule = [
+        ('32强', 16, datetime(2026, 6, 29, 3, 0)),
+        ('16强', 8, datetime(2026, 7, 5, 3, 0)),
+        ('8强', 4, datetime(2026, 7, 9, 3, 0)),
+    ]
+    for stage, count, start_time in ko_schedule:
+        t2 = start_time
+        for i in range(count):
+            matches.append((
+                stage,
+                t2.strftime('%Y-%m-%d %H:%M'),
+                f'{stage}-{i*2+1}',
+                f'{stage}-{i*2+2}'
+            ))
+            t2 += timedelta(hours=3)
+            if (i+1) % 2 == 0:
+                t2 += timedelta(days=1)
+                t2 = t2.replace(hour=3, minute=0)
+    
+    matches.append(('半决赛', '2026-07-13 09:00', '半决赛-1', '半决赛-2'))
+    matches.append(('半决赛', '2026-07-13 13:00', '半决赛-3', '半决赛-4'))
+    matches.append(('季军赛', '2026-07-18 09:00', '季军赛-1', '季军赛-2'))
+    matches.append(('决赛', '2026-07-20 09:00', '决赛-1', '决赛-2'))
+    
+    # Update existing matches by ID order
     conn = get_db()
-    conn.execute('DELETE FROM matches')
+    c = conn.cursor()
+    rows = c.execute('SELECT id FROM matches ORDER BY id').fetchall()
+    updated = 0
+    for i, row in enumerate(rows):
+        if i >= len(matches):
+            break
+        mid = row[0]
+        stage, dt, ta, tb = matches[i]
+        c.execute(
+            'UPDATE matches SET stage=%s, match_datetime=%s, team_a=%s, team_b=%s WHERE id=%s' if DATABASE_URL else
+            'UPDATE matches SET stage=?, match_datetime=?, team_a=?, team_b=? WHERE id=?',
+            (stage, dt, ta, tb, mid)
+        )
+        updated += 1
     conn.commit()
     conn.close()
-    # Re-initialize
-    init_db()
-    return jsonify(success=True, message='已重新初始化比赛数据')
+    
+    return jsonify(success=True, updated=updated, message=f'已更新 {updated} 场比赛的正确赛程')
 
 
 @app.route('/api/save_prediction', methods=['POST'])
